@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Auth;
 
 class isStudent
 {
@@ -15,9 +16,10 @@ class isStudent
      */
     public function handle($request, Closure $next)
     {
-        if($request->user()->role != 'student'){
+        if (!Auth::guard()->check() ||$request->user()->role != "student" ) {
             return redirect('/');
         }
+
         return $next($request);
     }
 }

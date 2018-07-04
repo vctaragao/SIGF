@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Auth;
 
 class isDirector
 {
@@ -15,9 +16,11 @@ class isDirector
      */
     public function handle($request, Closure $next)
     {
-        if($request->user()->role != "director"){
+         if (!Auth::guard()->check() ||$request->user()->role != "director" ) {
             return redirect('/');
         }
+         
+                                                 
         return $next($request);
     }
 }

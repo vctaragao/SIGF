@@ -13,20 +13,11 @@ class checkRole
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next, $role)
     {
-        if($request->user()->role == 'director'){
-
-            return redirect('directorHome');
-
-        }elseif ($request->user()->role == 'professor') {
-            
-            return redirect('professorHome');
-
-        }elseif ($request->user()->role == 'student') {
-            
-            return redirect('studentHome');
-        }
+        if (! $request->user()->hasRole($role)) {
+        	return redirect('directorHome');
+        } 
 
         return $next($request);
     }
