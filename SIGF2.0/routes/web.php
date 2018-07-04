@@ -11,10 +11,20 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'PagesController@index')->middleware('checkRole');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home')->middleware('checkRole');
+
+Route::get('/directorHome', 'DirectorController@index')->middleware('isDirector');
+
+Route::get('/studentHome', function(){
+	return view('studentHome');
+})->middleware('isStudent');;
+
+Route::get('/professorHome', function(){
+	return view('professorHome');
+})->middleware('isProfessor');;
+
+
