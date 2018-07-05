@@ -16,7 +16,7 @@ class isDirector
      */
     public function handle($request, Closure $next)
     {
-         if (!Auth::guard()->check() ||$request->user()->role != "director" ) {
+         if (!Auth::guard()->check() || !$request->user()->isDirector ) {
             return redirect('/');
         }
          

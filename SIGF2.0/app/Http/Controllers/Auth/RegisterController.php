@@ -63,10 +63,17 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+
+        if(array_key_exists('isDirector',$data) && $data['isDirector'] == 'on'){
+            $data['isDirector'] = '1';
+        }else{
+            $data['isDirector'] = '0';
+        }
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'role'  => $data['role'],
+            'isDirector'  => $data['isDirector'],
             'password' => Hash::make($data['password']),
             'sex' => $data['sex'],
             'phone' => $data['phone'],

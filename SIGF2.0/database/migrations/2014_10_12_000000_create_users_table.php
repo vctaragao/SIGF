@@ -22,7 +22,9 @@ class CreateUsersTable extends Migration
             $table->string('course');
             $table->string('colar');
             $table->string('email')->unique();
-            $table->enum('role',['director','professor','student']);
+            $table->boolean('isDirector')->default('0');
+            $table->boolean('isProfessor')->default('0');
+            $table->boolean('isStudent')->default('1');
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

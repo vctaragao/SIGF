@@ -16,7 +16,7 @@ class isProfessor
      */
     public function handle($request, Closure $next)
     {
-        if (!Auth::guard()->check() || $request->user()->role != "professor" ) {
+        if (!Auth::guard()->check() || !$request->user()->isProfessor ) {
             return redirect('/');
         }
         return $next($request);

@@ -15,7 +15,7 @@
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
+                                <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}"  autofocus>
 
                                 @if ($errors->has('name'))
                                     <span class="invalid-feedback">
@@ -29,7 +29,7 @@
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
+                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" >
 
                                 @if ($errors->has('email'))
                                     <span class="invalid-feedback">
@@ -43,7 +43,7 @@
                             <label for="sex" class="col-md-4 col-form-label text-md-right">{{ __('Sex') }}</label>
 
                             <div class="col-md-6">
-                                <input id="sex" type="sex" class="form-control{{ $errors->has('sex') ? ' is-invalid' : '' }}" name="sex" value="{{ old('sex') }}" required>
+                                <input id="sex" type="sex" class="form-control{{ $errors->has('sex') ? ' is-invalid' : '' }}" name="sex" value="{{ old('sex') }}" >
 
                                 @if ($errors->has('sex'))
                                     <span class="invalid-feedback">
@@ -57,7 +57,7 @@
                             <label for="phone" class="col-md-4 col-form-label text-md-right">{{ __('Phone Number') }}</label>
 
                             <div class="col-md-6">
-                                <input id="phone" type="phone" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" value="{{ old('phone') }}" required>
+                                <input id="phone" type="phone" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" value="{{ old('phone') }}" >
 
                                 @if ($errors->has('phone'))
                                     <span class="invalid-feedback">
@@ -71,7 +71,7 @@
                             <label for="cpf" class="col-md-4 col-form-label text-md-right">{{ __('CPF') }}</label>
 
                             <div class="col-md-6">
-                                <input id="cpf" type="cpf" class="form-control{{ $errors->has('cpf') ? ' is-invalid' : '' }}" name="cpf" value="{{ old('cpf') }}" required>
+                                <input id="cpf" type="cpf" class="form-control{{ $errors->has('cpf') ? ' is-invalid' : '' }}" name="cpf" value="{{ old('cpf') }}" >
 
                                 @if ($errors->has('cpf'))
                                     <span class="invalid-feedback">
@@ -80,16 +80,16 @@
                                 @endif
                             </div>
                         </div>
-
+                        
                         <div class="form-group row">
-                            <label for="cpf" class="col-md-4 col-form-label text-md-right">{{ __('isDirector') }}</label>
+                            <label for="cpf" class="col-md-4 col-form-label text-md-right">{{ __('role') }}</label>
 
                             <div class="col-md-6">
-                                <input id="isDirector" type="checkbox" class="form-control{{ $errors->has('isDirector') ? ' is-invalid' : '' }}" name="isDirector">
+                                <input id="role" type="role" class="form-control{{ $errors->has('role') ? ' is-invalid' : '' }}" name="role" value="{{ old('role') }}" >
 
-                                @if ($errors->has('isDirector'))
+                                @if ($errors->has('role'))
                                     <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('isDirector') }}</strong>
+                                        <strong>{{ $errors->first('role') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -99,7 +99,7 @@
                             <label for="course" class="col-md-4 col-form-label text-md-right">{{ __('Curse') }}</label>
 
                             <div class="col-md-6">
-                                <input id="course" type="course" class="form-control{{ $errors->has('course') ? ' is-invalid' : '' }}" name="course" value="{{ old('course') }}" required>
+                                <input id="course" type="course" class="form-control{{ $errors->has('course') ? ' is-invalid' : '' }}" name="course" value="{{ old('course') }}" >
 
                                 @if ($errors->has('course'))
                                     <span class="invalid-feedback">
@@ -113,7 +113,7 @@
                             <label for="colar" class="col-md-4 col-form-label text-md-right">{{ __('Colar') }}</label>
 
                             <div class="col-md-6">
-                                <input id="colar" type="colar" class="form-control{{ $errors->has('colar') ? ' is-invalid' : '' }}" name="colar" value="{{ old('colar') }}" required>
+                                <input id="colar" type="colar" class="form-control{{ $errors->has('colar') ? ' is-invalid' : '' }}" name="colar" value="{{ old('colar') }}" >
 
                                 @if ($errors->has('colar'))
                                     <span class="invalid-feedback">
@@ -123,19 +123,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+            
 
                         <div class="form-group row">
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>

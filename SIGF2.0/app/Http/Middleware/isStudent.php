@@ -16,7 +16,7 @@ class isStudent
      */
     public function handle($request, Closure $next)
     {
-        if (!Auth::guard()->check() ||$request->user()->role != "student" ) {
+        if (!Auth::guard()->check() || !$request->user()->isStudent ) {
             return redirect('/');
         }
 

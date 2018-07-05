@@ -20,15 +20,15 @@ class RedirectIfAuthenticated
         if (Auth::guard($guard)->check()) {
 
 
-            if(Auth::user()->role == 'director'){
+            if(Auth::user()->isDirector){
 
                 return redirect('/directorHome');
 
-            }elseif(Auth::user()->role == 'professor'){
+            }elseif(Auth::user()->isProfessor){
               
                 return redirect('/professorHome');
 
-            }elseif(Auth::user()->role == 'student'){
+            }elseif(Auth::user()->isStudent){
 
                 return redirect('/studentHome');
             }

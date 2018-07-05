@@ -25,7 +25,7 @@
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    {{ config('app.name', 'SIGF') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -34,7 +34,31 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
+                        @if(Auth::guard()->check() && Auth::user()->isDirector)
+                            <li class="nav-item"> <a class="nav-link" href="">Alunos</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="">Professores</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="">Diretores</a></li>
+                            <li class="nav-item dropdown">
+                                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                     Turma
+                                   </a>
+                                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                     <a class="dropdown-item" href={{ url('/Classrooms') }}>Ver turmas</a>
+                                     <a class="dropdown-item" href={{ url('/addClassroom') }}>Adicionar Turma</a>
+                                     <div class="dropdown-divider"></div>
+                                     <a class="dropdown-item" href="#">Remover Turma</a>
+                                   </div>
+                                 </li>
+                        @elseif(Auth::guard()->check() && Auth::user()->isProfessor)
+                            <li class="nav-item"> <a class="nav-link" href="">Alunos</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="">Professores</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="">Ver Turmas</a></li>
 
+                        @elseif(Auth::guard()->check() && Auth::user()->isStudent)
+                            <li class="nav-item"> <a class="nav-link" href={{ url('/Classrooms') }}>Ver Turmas</a></li>
+                            
+                        @endif
+                        
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -55,6 +79,7 @@
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
+                                    <a class="dropdown-item" href={{ url('/studentEdit') }} >Editar informações</a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
