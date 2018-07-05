@@ -35,16 +35,36 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         @if(Auth::guard()->check() && Auth::user()->isDirector)
-                            <li class="nav-item"> <a class="nav-link" href="">Alunos</a></li>
+                             <li class="nav-item dropdown">
+                                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                     Alunos
+                                   </a>
+                                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                     <a class="dropdown-item" href={{ url('/studentShowAll') }}>Ver alunos</a>
+                                     <a class="dropdown-item" href={{ url('/directorRegister') }}>Adicionar aluno</a>
+                                     <div class="dropdown-divider"></div>
+                                     <a class="dropdown-item" href={{ url('/studentDelete') }}>Remover aluno</a>
+                                   </div>
+                                 </li>
                             <li class="nav-item"> <a class="nav-link" href="">Professores</a></li>
-                            <li class="nav-item"> <a class="nav-link" href="">Diretores</a></li>
+                             <li class="nav-item dropdown">
+                                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                     Diretores
+                                   </a>
+                                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                     <a class="dropdown-item" href={{ url('/directorShowAll') }}>Ver Diretores</a>
+                                     <a class="dropdown-item" href={{ url('/directorRegister') }}>Adicionar Diretor</a>
+                                     <div class="dropdown-divider"></div>
+                                     <a class="dropdown-item" href="#">Remover Diretor</a>
+                                   </div>
+                                 </li>
                             <li class="nav-item dropdown">
                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                      Turma
                                    </a>
                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                      <a class="dropdown-item" href={{ url('/Classrooms') }}>Ver turmas</a>
-                                     <a class="dropdown-item" href={{ url('/addClassroom') }}>Adicionar Turma</a>
+                                     <a class="dropdown-item" href={{ url('/addClassroom') }}>Criar Turma</a>
                                      <div class="dropdown-divider"></div>
                                      <a class="dropdown-item" href="#">Remover Turma</a>
                                    </div>
@@ -55,7 +75,7 @@
                             <li class="nav-item"> <a class="nav-link" href="">Ver Turmas</a></li>
 
                         @elseif(Auth::guard()->check() && Auth::user()->isStudent)
-                            <li class="nav-item"> <a class="nav-link" href={{ url('/Classrooms') }}>Ver Turmas</a></li>
+                            <li class="nav-item"> <a class="nav-link" href={{ url('/addClassrooms') }}>Ver Turmas</a></li>
                             
                         @endif
                         

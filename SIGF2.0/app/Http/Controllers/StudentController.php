@@ -56,7 +56,29 @@ class StudentController extends Controller
     public function showAll(){
 
         $students = User::all();
-        return $students;
+        return view('student.showAll',['students' => $students]);
+    }
+
+    public function showAllD(){
+
+        $students = User::all();
+        return view('student.delete', ['students' => $students]);
+    }
+
+    public function delete($student_id, Request $request){
+        
+        $student = User::find($student_id);
+        
+
+        $student->delete();
+
+        if($student){
+            $request->session()->flash('erro', 'Não foi possivel remover o diretor');
+        }else{
+            $request->session()->flash('success', 'Diretor removido com sucesso');
+        }
+
+        return redirect('/studentShowAll');
     }
 
     public function getNamebyID($user_id){

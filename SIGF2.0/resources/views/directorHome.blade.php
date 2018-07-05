@@ -8,9 +8,9 @@
                 <div class="card-header">Dashboard</div>
 
                 <div class="card-body">
-                    @if (session('status'))
+                    @if (session('success'))
                         <div class="alert alert-success">
-                            {{ session('status') }}
+                            {{ session('success') }}
                         </div>
                     @endif
 
@@ -40,7 +40,7 @@
                     @endforeach
 
                     <a href={{ url('directorRegister') }} class="text-white btn btn-primary float-right">Adicionar Diretor</a>
-                    <a href={{ url('addClass') }} class="mr-1 text-white btn btn-primary float-right">Adicionar Turma</a>
+                    <a href={{ url('/addClassroom') }} class="mr-1 text-white btn btn-primary float-right">Criar Turma</a>
                     
                 </div>
             </div>
