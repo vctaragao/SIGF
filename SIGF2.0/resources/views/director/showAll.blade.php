@@ -18,19 +18,16 @@
 
                     
 
-                    @foreach($students as $student)
+                    @foreach($directors as $director)
 
-                   <div class="row pb-3 mb-3 border-bottom">
+                   <dir class="row">
                      <div class="col-6 float-left">
-                       <a class="" href={{ url('/studentShow/'.$student->id) }}>{{ $student->name }}</a>
+                       <a href={{ url('/directorShow/'.$director->id) }}>{{ $director->name }}</a>
                      </div>
-
-                     @if($flag = 'add')
-                        <div class="col-6">
-                            <a href={{ url('directorAdd/'.$student->id) }} class="float-right btn btn-primary">Tornar Diretor</a>
-                        </div>
-                     @endif
-                   </div>
+                     <div class="col-6">
+                        <a href="{{ url('/directorDelete/'.$director->id) }}" class="btn btn-danger">Remover</a> 
+                     </div>
+                   </dir>
 
                     @endforeach
                     

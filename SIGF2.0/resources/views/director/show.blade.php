@@ -6,7 +6,8 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                  You are logged in as Director!
+                    Dashboard
+                    <a href={{ url('/studentEdit/'.$director->id) }} class="btn btn-primary float-right"> Editar <i class="fas fa-user-edit"></i></a>
                 </div>
 
                 <div class="card-body">
@@ -16,23 +17,25 @@
                         </div>
                     @endif
 
-                    
+                    Nome:  {{ $director->name }}
+                                       
 
-                    @foreach($directors as $director)
+                    <p>Informações: </p>
 
-                   <dir class="row">
-                     <div class="col-6 float-left">
-                       {{ $director->name }}
-                     </div>
-                     <div class="col-6">
-                        <a href="{{ url('/directorDelete/'.$director->id) }}" class="btn btn-danger">Remover</a> 
-                     </div>
-                   </dir>
+                    Nome: {{ $director->name }}
+                    <br>
+                    email: {{ $director->email }}
+                    <br>
+                    sexo: {{ $director->sex }}
+                    <br>
+                    CPF: {{ $director->cpf }}
+                    <br>
+                    Telefone : {{ $director->phone }}
+                    <br>
+                    Curso : {{ $director->course }}
+                    <br>
+                    Colar : {{ $director->colar }}
 
-                    @endforeach
-                    
-                  
-                     
                 </div>
             </div>
         </div>

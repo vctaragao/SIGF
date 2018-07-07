@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Atualizar informações') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action={{ url('/studentEdit') }}>
+                    <form method="POST" action={{ url('/directorEdit') }}>
                         @csrf
 
                          @if(session('error'))
@@ -22,7 +22,7 @@
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ $user->name }}" required autofocus>
+                                <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ $director->name }}" required autofocus>
 
                                 @if ($errors->has('name'))
                                     <span class="invalid-feedback">
@@ -36,7 +36,7 @@
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ $user->email }}" required>
+                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ $director->email }}" required>
 
                                 @if ($errors->has('email'))
                                     <span class="invalid-feedback">
@@ -50,7 +50,7 @@
                             <label for="sex" class="col-md-4 col-form-label text-md-right">{{ __('Sex') }}</label>
 
                             <div class="col-md-6">
-                                <input id="sex" type="sex" class="form-control{{ $errors->has('sex') ? ' is-invalid' : '' }}" name="sex" value="{{ $user->sex }}" required>
+                                <input id="sex" type="sex" class="form-control{{ $errors->has('sex') ? ' is-invalid' : '' }}" name="sex" value="{{ $director->sex }}" required>
 
                                 @if ($errors->has('sex'))
                                     <span class="invalid-feedback">
@@ -64,7 +64,7 @@
                             <label for="phone" class="col-md-4 col-form-label text-md-right">{{ __('Phone Number') }}</label>
 
                             <div class="col-md-6">
-                                <input id="phone" type="phone" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" value="{{ $user->phone }}" required>
+                                <input id="phone" type="phone" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" value="{{ $director->phone }}" required>
 
                                 @if ($errors->has('phone'))
                                     <span class="invalid-feedback">
@@ -78,7 +78,7 @@
                             <label for="cpf" class="col-md-4 col-form-label text-md-right">{{ __('CPF') }}</label>
 
                             <div class="col-md-6">
-                                <input id="cpf" type="cpf" class="form-control{{ $errors->has('cpf') ? ' is-invalid' : '' }}" name="cpf" value="{{ $user->cpf }}" required>
+                                <input id="cpf" type="cpf" class="form-control{{ $errors->has('cpf') ? ' is-invalid' : '' }}" name="cpf" value="{{ $director->cpf }}" required>
 
                                 @if ($errors->has('cpf'))
                                     <span class="invalid-feedback">
@@ -92,7 +92,7 @@
                             <label for="course" class="col-md-4 col-form-label text-md-right">{{ __('Curse') }}</label>
 
                             <div class="col-md-6">
-                                <input id="course" type="course" class="form-control{{ $errors->has('course') ? ' is-invalid' : '' }}" name="course" value="{{ $user->course }}" required>
+                                <input id="course" type="course" class="form-control{{ $errors->has('course') ? ' is-invalid' : '' }}" name="course" value="{{ $director->course }}" required>
 
                                 @if ($errors->has('course'))
                                     <span class="invalid-feedback">
@@ -106,7 +106,7 @@
                             <label for="colar" class="col-md-4 col-form-label text-md-right">{{ __('Colar') }}</label>
 
                             <div class="col-md-6">
-                                <input id="colar" type="colar" class="form-control{{ $errors->has('colar') ? ' is-invalid' : '' }}" name="colar" value="{{ $user->colar }}" required>
+                                <input id="colar" type="colar" class="form-control{{ $errors->has('colar') ? ' is-invalid' : '' }}" name="colar" value="{{ $director->colar }}" required>
 
                                 @if ($errors->has('colar'))
                                     <span class="invalid-feedback">
@@ -129,7 +129,7 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button name="user_edit" value={{ $user->id }} type="submit" class="btn btn-primary">
+                                <button name="director_edit" value={{ $director->id }} type="submit" class="btn btn-primary">
                                     {{ __('Atualizar') }}
                                 </button>
                             </div>

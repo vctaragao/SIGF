@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class DirectorController extends Controller
 {
@@ -18,61 +19,47 @@ class DirectorController extends Controller
     	return view('directorHome', ['current_user' => $current_user, 'directors' => $directors]);
     }
 
-    public function register(){
+    public function edit($director_id){
 
-    	return view('director.register');
+        $director = User::find($director_id);
+
+        return view('director.edit', ['director' => $director]);
     }
 
-    public function create(Request $request){
-        // Create a director
-            $validate = $request->validate([
-                'name' => 'required|string|',
-                'email' => 'unique:users|email',
-                'cpf'   => 'unique:users|digits_between:5,25',
-                'sex'   =>  'required',
-                'phone' =>  'required|digits_between:8,16',
-                'course' => 'required',
-                'colar' => 'required|',
-            ]);
+    public function update(Request $data){
 
+        $current_user = Auth::user();
 
-            if($validate && $request->password_confirmation == $request->password){
+        $validate = $data->validate([
+            'email' => ['email','required', Rule::unique('users')->ignore($data->director_edit),],
+            'cpf'   => [Rule::unique('users')->ignore($data->director_edit),],
+        ]);
 
-                $director = new User;
+        $director = User::find($data->director_edit);
 
-                $director->name = $request->name;
-                $director->email = $request->email;
-                $director->cpf = $request->cpf;
-                $director->sex = $request->sex;
-                $director->phone = $request->phone;
-                $director->course = $request->course;
-                $director->colar = $request->colar;
-                $director->password = Hash::make($request->password);
-                $director->isDirector = '1';
-
-                $director->save();
-
-                $request->session()->flash('success','Diretor adicionado com sucesso');
-
-                return redirect('/directorShowAll');
-
-            }else{
-                $request->session()->flash('error', 'Senha incorreta!');
-                return redirect('/addClassroom');
-            }
-
+        if(Hash::check($data->password_confirmation, $current_user->password) && $validate){
             
+            $director->name = $data->name;
+            $director->sex = $data->sex;
+            $director->email = $data->email;
+            $director->phone = $data->phone;
+            $director->cpf = $data->cpf;
+            $director->course = $data->course;
+            $director->colar = $data->colar;
 
-    }
+            $result = $director->save();
 
-    public function edit(){
+            if ($result) {
+                $data->session()->flash('success','Aluno editado com sucesso');
+            }else{
+                $data->session()->flash('error', 'Não foi possivel alterar informações');
+            }
+        }else{
+            return redirect()->back()->with('error','Senha incorreta');
+        }
 
-        // show page to edit director
-    }
+        return redirect('/directorShow/'.$director->id);
 
-    public function update(){
-
-        // Update director information
     }
 
     public function delete($director_id, Request $request){
@@ -92,11 +79,18 @@ class DirectorController extends Controller
         return redirect('/directorShowAll');
     }
 
+    public function show($director_id){
+
+        $director = User::find($director_id);
+
+        return view('director.show', ['director' => $director]);
+    }
+
     public function showAll(){
 
         $directors = User::where('isDirector', '=', 1)->get();
 
-        return view('director.show',['directors' => $directors]);
+        return view('director.showAll',['directors' => $directors]);
 
     }
 

@@ -17,6 +17,9 @@
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
 
+    {{-- Font Awesome --}}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
@@ -53,7 +56,7 @@
                                    </a>
                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                      <a class="dropdown-item" href={{ url('/directorShowAll') }}>Ver Diretores</a>
-                                     <a class="dropdown-item" href={{ url('/directorRegister') }}>Adicionar Diretor</a>
+                                     <a class="dropdown-item" href={{ url('/directorAdd') }}>Adicionar Diretor</a>
                                      <div class="dropdown-divider"></div>
                                      <a class="dropdown-item" href="#">Remover Diretor</a>
                                    </div>
@@ -99,8 +102,13 @@
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-                                    <a class="dropdown-item" href={{ url('/studentEdit') }} >Editar informações</a>
-
+                                    @if(Auth::user()->isDirector)
+                                        <a class="dropdown-item" href={{ url('/directorEdit/'. Auth::user()->id) }} >Editar informações</a>
+                                    @elseif(Auth::user()->isProfessor)
+                                        <a class="dropdown-item" href={{ url('/professorEdit/'. Auth::user()->id) }} >Editar informações</a>
+                                    @else
+                                        <a class="dropdown-item" href={{ url('/studentEdit/'. Auth::user()->id) }} >Editar informações</a>
+                                    @endif
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>

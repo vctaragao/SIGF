@@ -20,49 +20,93 @@ class StudentController extends Controller
     }
 
 
-    public function edit(Request $request){
+    public function edit($user_id){
 
-    	return view('student.edit');
+        $user = User::find($user_id);
+
+    	return view('student.edit', ['user' => $user]);
     }
 
     public function update(Request $data){
 
-    	$current_id = Auth::user()->id;
+    	$current_user = Auth::user();
 
     	$validate = $data->validate([
-    		'email' => ['email','required', Rule::unique('users')->ignore($current_id),],
-    		'cpf'   => [Rule::unique('users')->ignore($current_id),],
+    		'email' => ['email','required', Rule::unique('users')->ignore($data->user_edit),],
+    		'cpf'   => [Rule::unique('users')->ignore($data->user_edit),],
     	]);
 
-    	$user = User::find($current_id);
+    	$student = User::find($data->user_edit);
 
-    	if(Hash::check($data->password_confirmation, $user->password) && $validate){
+    	if(Hash::check($data->password_confirmation, $current_user->password) && $validate){
     		
-    		$user->name = $data->name;
-    		$user->sex = $data->sex;
-    		$user->email = $data->email;
-    		$user->phone = $data->phone;
-    		$user->cpf = $data->cpf;
-    		$user->course = $data->course;
-    		$user->colar = $data->colar;
+    		$student->name = $data->name;
+    		$student->sex = $data->sex;
+    		$student->email = $data->email;
+    		$student->phone = $data->phone;
+    		$student->cpf = $data->cpf;
+    		$student->course = $data->course;
+    		$student->colar = $data->colar;
 
-    		$user->save();
-    	}
+    		$result = $student->save();
 
-    	return redirect('/');
+            if ($result) {
+                $data->session()->flash('success','Aluno editado com sucesso');
+            }else{
+                $data->session()->flash('error', 'Não foi possivel alterar informações');
+            }
+    	}else{
+            return redirect()->back()->with('error','Senha incorreta');
+        }
 
+    	return redirect('/studentShow/'.$student->id);
+
+    }
+
+    public function show($user_id){
+
+        $student = User::find($user_id);
+
+        return view('student.show', ['student' => $student]);
     }
 
     public function showAll(){
 
         $students = User::all();
-        return view('student.showAll',['students' => $students]);
+
+        $flag = '';
+
+        return view('student.showAll',['students' => $students, 'flag' => $flag]);
     }
 
     public function showAllD(){
 
         $students = User::all();
         return view('student.delete', ['students' => $students]);
+    }
+
+    public function showAllNotDirector(){
+
+        $flag = 'add';
+
+        $students = User::where('isDirector', '=', '0')->get();
+
+        return view('student.showAll', ['students' => $students, 'flag' => $flag]);
+    }
+
+    public function addDirector($student_id){
+
+        $student = User::find($student_id);
+
+        $student->isDirector = '1';
+
+        $result = $student->save();
+
+        if($result){
+            return redirect()->back()->with('success', 'Diretor adicionado com sucesso');
+        }else{
+            return redirect()->back()->with('error', 'Não foi possivel adicionar diretor');
+        }
     }
 
     public function delete($student_id, Request $request){
