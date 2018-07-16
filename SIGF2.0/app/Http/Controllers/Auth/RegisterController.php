@@ -62,11 +62,7 @@ class RegisterController extends Controller
      * @return \App\User
      */
     public function create(array $data)
-    {
-
-        echo "aqui";
-        die();
-
+    {   
         if(array_key_exists('isDirector',$data) && $data['isDirector'] == 'on'){
             $data['isDirector'] = '1';
         }else{

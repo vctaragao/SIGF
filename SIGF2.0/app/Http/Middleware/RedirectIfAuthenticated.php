@@ -22,15 +22,15 @@ class RedirectIfAuthenticated
 
             if(Auth::user()->isDirector){
 
-                return redirect('/directorHome');
+                return redirect('/Home');
 
             }elseif(Auth::user()->isProfessor){
               
-                return redirect('/professorHome');
+                return redirect('/Home');
 
             }elseif(Auth::user()->isStudent){
 
-                return redirect('/studentHome');
+                return redirect('/Home');
             }
             
         }

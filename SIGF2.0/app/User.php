@@ -34,4 +34,22 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function store($data){
+
+        $this->name = $data->name;
+        $this->cpf = $data->cpf;
+        $this->email = $data->email;
+        $this->phone = $data->phone;
+        $this->email = $data->email;
+        $this->sex = $data->sex;
+        $this->course = $data->course;
+        $this->colar = $data->colar;
+
+        $this->save();
+
+        return redirect('/Home');
+
+
+    }
 }

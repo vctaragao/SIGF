@@ -18,7 +18,7 @@ class CreateUserClassromsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('classroom_id')->unsigned();
             $table->string('role');
-            $table->boolean('wait');
+            $table->boolean('wait')->default('0');
             $table->timestamps();
         });
 

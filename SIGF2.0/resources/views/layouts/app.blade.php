@@ -37,8 +37,16 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        @if(Auth::guard()->check() && Auth::user()->isDirector)
-                             <li class="nav-item dropdown">
+                        @if(Auth::guard()->check() && !(Auth::user()->isDirector))
+
+                            <li class="nav-item"> <a class="nav-link" href={{ url('/studentAll') }}>Ver Alunos</a></li>
+                            <li class="nav-item"> <a class="nav-link" href={{ url('/classroomAll') }}>Ver Turmas</a></li>
+                            <li class="nav-item"> <a class="nav-link" href={{ url('/professorAll') }}>Ver Professores</a></li>
+                            <li class="nav-item"> <a class="nav-link" href={{ url('/directorAll') }}>Ver Diretores</a></li>
+
+                        @elseif(Auth::guard()->check() && Auth::user()->isDirector)
+
+                            <li class="nav-item dropdown">
                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                      Alunos
                                    </a>
@@ -72,13 +80,6 @@
                                      <a class="dropdown-item" href="#">Remover Turma</a>
                                    </div>
                                  </li>
-                        @elseif(Auth::guard()->check() && Auth::user()->isProfessor)
-                            <li class="nav-item"> <a class="nav-link" href="">Alunos</a></li>
-                            <li class="nav-item"> <a class="nav-link" href="">Professores</a></li>
-                            <li class="nav-item"> <a class="nav-link" href="">Ver Turmas</a></li>
-
-                        @elseif(Auth::guard()->check() && Auth::user()->isStudent)
-                            <li class="nav-item"> <a class="nav-link" href={{ url('/addClassrooms') }}>Ver Turmas</a></li>
                             
                         @endif
                         

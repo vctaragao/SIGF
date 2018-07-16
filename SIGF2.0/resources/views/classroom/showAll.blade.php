@@ -14,8 +14,6 @@
                         </div>
                     @endif
 
-                    You are logged in as Director! Welcome
-
                     <table class="table">
                           <thead>
                             <tr>
@@ -30,7 +28,7 @@
                             @foreach($classrooms as $classroom)
                                 <tr>
                                   <th scope="row">{{ $classroom->id }}</th>
-                                  <td><a href={{ url('/showClassroom/'.$classroom->id) }}>{{ $classroom->name }}</a></td>
+                                  <td><a href={{ url('/classroom/'.$classroom->id) }}>{{ $classroom->name }}</a></td>
                                   <td>{{ $classroom->schedule }}</td>
                                   <td>{{ $classroom->day }}</td>
                                   <td>{{ $classroom->size }}</td>

@@ -7,7 +7,9 @@
             <div class="card">
                 <div class="card-header">
                     Dashboard
-                    <a href={{ url('/studentEdit/'.$director->id) }} class="btn btn-primary float-right"> Editar <i class="fas fa-user-edit"></i></a>
+                    @if(Auth::user()->isDirector == 1)
+                        <a href={{ url('/studentEdit/'.$director->id) }} class="btn btn-primary float-right"> Editar <i class="fas fa-user-edit"></i></a>
+                    @endif
                 </div>
 
                 <div class="card-body">

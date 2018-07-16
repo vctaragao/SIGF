@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                  You are logged in as Director!
+                  Professores
                 </div>
 
                 <div class="card-body">
@@ -18,16 +18,19 @@
 
                     
 
-                    @foreach($directors as $director)
+                    @foreach($professors as $professor)
 
-                   <dir class="row">
+                   <div class="row pb-3 mb-3 border-bottom">
                      <div class="col-6 float-left">
-                       <a href={{ url('/director/'.$director->id) }}>{{ $director->name }}</a>
+                       <a class="" href={{ url('/professor/'.$professor->id) }}>{{ $professor->name }}</a>
                      </div>
-                     {{-- <div class="col-6">
-                        <a href="{{ url('/directorDelete/'.$director->id) }}" class="btn btn-danger">Remover</a> 
-                     </div> --}}
-                   </dir>
+
+                     @if(!empty($flag))
+                        <div class="col-6">
+                            <a href={{ url('directorAdd/'.$professor->id) }} class="float-right btn btn-primary">Tornar Diretor</a>
+                        </div>
+                     @endif
+                   </div>
 
                     @endforeach
                     

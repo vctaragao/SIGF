@@ -14,13 +14,11 @@
                         </div>
                     @endif
 
-                    You are logged in as a Student! Welcome {{ $current_student->name }}
+                    Nome: {{ $current_student->name }}
                                        
 
                     <p>Informações: </p>
 
-                    ID: {{ $current_student->id }}
-                    <br>
                     Nome: {{ $current_student->name }}
                     <br>
                     sexo: {{ $current_student->sex }}
@@ -32,7 +30,6 @@
                     Curso : {{ $current_student->course }}
                     <br>
                     email: {{ $current_student->email }}
-                    <br>
 
                 </div>
             </div>

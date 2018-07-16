@@ -17,21 +17,34 @@ Route::get('/', 'PagesController@index')->middleware('guest');
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('guest');
 
+
+
 Route::middleware(['isDirector'])->group(function(){
-	
+		
 });
 
 
 
 Route::middleware(['isStudent'])->group(function(){
 
+	Route::get('/Home', 'StudentController@index');
+	Route::get('/studentEdit/{id}', 'StudentController@edit');
+	Route::post('/studentEdit', 'StudentController@update');
+	Route::get('/studentAll', 'StudentController@seeAllStudents');
+	Route::get('/student/{id}', 'StudentController@seeStudentInfo');
+	Route::get('/classroomAll', 'StudentController@seeAllClassrooms');
+	Route::get('/classroom/{id}', 'StudentController@seeClassroomInfo');
+	Route::get('/professorAll', 'StudentController@seeAllProfessors');
+	Route::get('professor/{id}', 'StudentController@seeProfessorInfo');
+	Route::get('/directorAll', 'StudentController@seeAllDirectors');
+	Route::get('/director/{id}', 'StudentController@seeDirectorInfo');
+
 });
 
 
+Route::middleware(['isProfessor'])->group(function(){
 
-Route::get('/professorHome', function(){
-	return view('professorHome');
-})->middleware('isProfessor');
-
-
+	Route::get('/addStudentToClassroom/{id}', 'ProfessorController@addStudentsToClassroom');
+	Route::post('/addStudentToClassroom/{id}', 'ProfessorController@insertStudentsToClassroom');
+});
 

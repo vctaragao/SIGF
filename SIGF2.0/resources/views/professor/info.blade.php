@@ -14,25 +14,22 @@
                         </div>
                     @endif
 
-                    You are logged in as a Student! Welcome {{ $current_student->name }}
+                    Nome: {{ $professor->name }}
                                        
 
                     <p>Informações: </p>
 
-                    ID: {{ $current_student->id }}
+                    Nome: {{ $professor->name }}
                     <br>
-                    Nome: {{ $current_student->name }}
+                    sexo: {{ $professor->sex }}
                     <br>
-                    sexo: {{ $current_student->sex }}
+                    CPF: {{ $professor->cpf }}
                     <br>
-                    CPF: {{ $current_student->cpf }}
+                    Telefone : {{ $professor->phone }}
                     <br>
-                    Telefone : {{ $current_student->phone }}
+                    Curso : {{ $professor->course }}
                     <br>
-                    Curso : {{ $current_student->course }}
-                    <br>
-                    email: {{ $current_student->email }}
-                    <br>
+                    email: {{ $professor->email }}
 
                 </div>
             </div>
