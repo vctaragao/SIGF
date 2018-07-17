@@ -18,7 +18,7 @@ class StudentController extends Controller
 
     	$current_student = $request->user();
 
-    	return view('studentHome',['current_student' => $current_student]);
+    	return view('home',['current_student' => $current_student]);
     }
 
     public function edit($student_id){

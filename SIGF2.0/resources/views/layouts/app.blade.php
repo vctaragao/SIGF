@@ -90,7 +90,7 @@
                         <!-- Authentication Links -->
                         @guest
                             {{-- <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li> --}}
-                            <li><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></li>
+                            <li><a class="nav-link" href="{{ route('register') }}">{{ __('Criar conta') }}</a></li>
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -125,5 +125,9 @@
             @yield('content')
         </main>
     </div>
+
+    <footer>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js" type="text/javascript" charset="utf-8" async defer></script>
+    </footer>
 </body>
 </html>

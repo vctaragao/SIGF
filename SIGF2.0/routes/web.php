@@ -48,5 +48,6 @@ Route::middleware(['isProfessor'])->group(function(){
 	Route::post('/addStudentToClassroom/{id}', 'ProfessorController@insertStudentsToClassroom');
 	Route::get('/removeStudentFromClassroom/{classroom_id}/{id}', 'ProfessorController@removeStudentsFromClassroom');
 	Route::get('/addClassToClassroom/{id}', 'ProfessorController@addClass');
+	Route::post('/addClassToClassrooom/{id}', 'ProfessorController@registerClass');
 });
 

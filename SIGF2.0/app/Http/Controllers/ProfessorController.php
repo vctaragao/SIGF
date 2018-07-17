@@ -62,6 +62,11 @@ class ProfessorController extends StudentController
 
     public function registerClass($classroom_id, Request $request){
         
+        $classroom = Classroom::find($classroom_id);
+        echo $request;
+        echo "<br>";
+        echo $classroom_id;
+        die();
     }
 
     public function editClass(){

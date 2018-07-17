@@ -19,7 +19,7 @@ class User extends Authenticatable
         'email',
         'password',
         'sex',
-        'isDirector',
+        'profile',
         'phone',
         'cpf',
         'course',

@@ -16,12 +16,13 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('gender');
+            $table->string('sex');
             $table->string('phone');
-            $table->string('cpf');
+            $table->string('cpf')->unique();
             $table->string('course');
             $table->string('colar');
             $table->string('email')->unique();
+            $table->string('profile');
             $table->boolean('isDirector')->default('0');
             $table->boolean('isProfessor')->default('0');
             $table->boolean('isStudent')->default('1');

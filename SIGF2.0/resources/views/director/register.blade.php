@@ -96,6 +96,20 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="profile" class="col-md-4 col-form-label text-md-right">{{ __('profile') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="profile" type="profile" class="form-control{{ $errors->has('profile') ? ' is-invalid' : '' }}" name="profile" value="{{ old('profile') }}" >
+
+                                @if ($errors->has('profile'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('profile') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="colar" class="col-md-4 col-form-label text-md-right">{{ __('Colar') }}</label>
 
                             <div class="col-md-6">

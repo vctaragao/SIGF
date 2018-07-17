@@ -49,9 +49,12 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            'name'      => 'required|string|max:255',
+            'email'     => 'required|string|email|max:255|unique:users',
+            'password'  => 'required|string|min:6|confirmed',
+            'profile'   => 'required|url',
+            'cpf'       => 'required|unique:users|digits:11',
+            'phone'     => 'required|string|min:14|max:16',
         ]);
     }
 
@@ -63,23 +66,28 @@ class RegisterController extends Controller
      */
     public function create(array $data)
     {   
-        if(array_key_exists('isDirector',$data) && $data['isDirector'] == 'on'){
-            $data['isDirector'] = '1';
-        }else{
-            $data['isDirector'] = '0';
-        }
 
         return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'isDirector'  => $data['isDirector'],
-            'password' => Hash::make($data['password']),
-            'sex' => $data['sex'],
-            'phone' => $data['phone'],
-            'cpf' => $data['cpf'],
-            'course' => $data['course'],
-            'colar' => $data['colar'],
+            'name'      => $data['name'],
+            'email'     => $data['email'],
+            'password'  => Hash::make($data['password']),
+            'sex'       => $data['sex'],
+            'phone'     => $data['phone'],
+            'cpf'       => $data['cpf'],
+            'course'    => $data['course'],
+            'profile'   => $data['profile'],
+            'colar'     => $data['colar'],
         ]);
     }
+
+    public function messages()
+{
+    return [
+        'cpf.required' => 'É necessário informar um CPF',
+        'cpf.unique:users' => 'CPF já cadastrado',
+        'cpf.digits:11' => 'CPF deve conter 11 digitos',
+        'body.required'  => 'A message is required',
+    ];
+}
 
 }
