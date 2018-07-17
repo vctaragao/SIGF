@@ -10,9 +10,9 @@
                 </div>
 
                 <div class="card-body">
-                    @if (session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
+                    @if (session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
                         </div>
                     @endif
 
@@ -20,7 +20,11 @@
 
                     @foreach($students as $student)
 
-                <form method="POST" action="{{ url('/addStudentToClassroom/'.$student->id) }}">
+              @if(!empty($flag))
+                     <form method="POST" action={{ url('/addStudentToClassroom/'.$classroom->id)}}>
+                                
+                                {{ csrf_field() }}
+                @endif
 
                    <div class="row pb-3 mb-3 border-bottom">
                      <div class="col-6 float-left">
@@ -46,7 +50,7 @@
 
 
                         <div class="col-3">
-                            <a role="button" type="submit" class="float-right btn btn-primary text-white font-weight-bold">Adicionar Aluno</a>
+                            <button type="submit" name="student_id" value="{{ $student->id }}" class="float-right btn btn-primary text-white font-weight-bold">Adicionar Aluno</button>
                         </div>
 
 

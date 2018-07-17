@@ -14,19 +14,54 @@ class ProfessorController extends StudentController
 
         $flag = 'add';
 
-        return view('student.showAll', ['students' => $studentsNotInClassroom, 'flag' => $flag]);
+        return view('student.showAll', ['students' => $studentsNotInClassroom, 'flag' => $flag, 'classroom' => $classroom]);
     }
 
-    public function insertStudentsInClassroom($id ,Request $request){
+    public function insertStudentsToClassroom($classroom_id, Request $request){
         
+        $classroom = Classroom::find($classroom_id);
+        $result = $classroom->insertStudentAs($request->student_id, $request->role);
+
+        if($result){
+
+            return redirect('/classroom/'.$classroom_id)->with('success', 'Aluno adicionado com sucesso!');
+
+        }else{
+
+            return redirect('/addStudentToClassroom/'.$classroom_id)->with('error', 'Aconteceu algum erro, não foi possivel adicionar o aluno!');
+        }
+
     }
 
-    public function removeStudentsFromClassroom(){
+    public function removeStudentsFromClassroom($classroom_id, $student_id){
 
+        $classroom = Classroom::find($classroom_id);
+        $result = $classroom->removeStudent($student_id);
+
+        if($result){
+
+            return redirect('/classroom/'.$classroom_id)->with('success', 'Aluno removido com sucesso!');
+
+        }else{
+
+            return redirect('/classroom/'.$classroom_id)->with('error', 'Aconteceu algum erro, não foi possivel remover o aluno!');
+        }
     }
 
-    public function addClass(){
+    public function addClass($classroom_id, Request $request){
 
+        $classroom = Classroom::find($classroom_id);
+        $students = $classroom->getStudentsInClassroom();
+
+        if(!$students){
+            $request->session->flash('error', 'Não foi possivel achar nenhum aluno');
+        }
+
+        return view('classroom.class.create', ['classroom' => $classroom, 'students' => $students]);
+    }
+
+    public function registerClass($classroom_id, Request $request){
+        
     }
 
     public function editClass(){

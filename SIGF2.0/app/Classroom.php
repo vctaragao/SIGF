@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\User_Classroom;
+use App\User;
 use Illuminate\Support\Facades\DB;
 
 class Classroom extends Model
@@ -15,21 +16,53 @@ class Classroom extends Model
         'size',
     ];
 
+
+    public function users(){
+
+        return $this->belongsToMany('App\User', 'user_classrooms');
+    }
+
+    public function insertStudentAs($student_id, $role){
+
+
+
+        $relation = new User_Classroom;
+
+        $relation->user_id = $student_id;
+        $relation->classroom_id = $this->id;
+        $relation->role = $role;
+        $relation->wait = 0;
+
+        $result = $relation->save();
+
+        return ($result) ? true : false;
+        
+    }
+
+    public function removeStudent($student_id){
+
+
+        $student = User_Classroom::where('classroom_id', '=', $this->id)
+                                    ->where('user_id', '=', $student_id)
+                                    ->delete();
+
+        return ($student) ? true : false;
+    }
+
     public function getLeader(){
-  		$leaders = DB::table('users')
-  			->select('name', 'phone', 'user_classrooms.role')
-            ->leftJoin('user_classrooms', 'users.id', '=', 'user_classrooms.user_id')
-            ->where('user_classrooms.classroom_id', '=', $this->id)
-            ->where('user_classrooms.role', '=', 'cc')
-            ->where('user_classrooms.wait', '=', '0' )
-            ->get();
+
+        $leaders = $this->users()->select('users.id','name','phone')
+                                ->where('user_classrooms.classroom_id', '=', $this->id)
+                                ->where('user_classrooms.role', '=', 'cc')
+                                ->where('user_classrooms.wait', '=', '0' )
+                                ->get();
 
     	return $leaders;
     }
 
     public function getLed(){
     	$leds = DB::table('users')
-  			->select('name', 'phone', 'user_classrooms.role')
+  			->select('users.id','name', 'phone', 'user_classrooms.role')
             ->leftJoin('user_classrooms', 'users.id', '=', 'user_classrooms.user_id')
             ->where('user_classrooms.classroom_id', '=', $this->id)
             ->where('user_classrooms.role', '=', 'cd')
@@ -48,6 +81,14 @@ class Classroom extends Model
         $studentsNotInClassroom = DB::table('users')->select('name','id')->whereNotIn('id',$inStudentsPrepared)->get();
 
         return $studentsNotInClassroom;
+
+    }
+
+    public function getStudentsInCLassroom(){
+        
+        $students = $this->users()->select('users.id', 'name')->where('user_classrooms.classroom_id', '=', $this->id)->get();
+
+        return $students;
 
     }
 
