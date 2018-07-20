@@ -8,15 +8,15 @@
                 <div class="card-header">{{ __('Registrar Aula') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action={{ url('/addClassToClassroom/'. $classroom->id) }}>
+                    <form method="POST" action={{ url('/addClassToClassroom') }}>
                         @csrf
-                        <div class="d-flex justify-content-around">
-                            <div class="d-flex flex-column">
-                                    <div class="form-group row">
+                        <div class="row">
+                            <div class="col-7 d-flex flex-column">
+                                <div class="form-group row">
                                     <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Data: ') }}</label>
 
                                     <div class="col-md-6">
-                                        <input id="date" type="text" class="form-control{{ $errors->has('date') ? ' is-invalid' : '' }}" name="date" value="{{ old('date') }}"  autofocus>
+                                        <input id="date" type="text" class="form-control{{ $errors->has('date') ? ' is-invalid' : '' }}" name="class_data[date]" value="{{ old('date') }}" data-mask="00/00/0000" autofocus required>
 
                                         @if ($errors->has('date'))
                                             <span class="invalid-feedback">
@@ -30,7 +30,7 @@
                                     <label for="content" class="col-md-4 col-form-label text-md-right">{{ __('Conteudo') }}</label>
 
                                     <div class="col-md-6">
-                                        <textarea id="content" type="text" class="form-control{{ $errors->has('content') ? ' is-invalid' : '' }}" name="content" value="{{ old('content') }}" ></textarea>
+                                        <textarea id="content" type="text" class="form-control{{ $errors->has('content') ? ' is-invalid' : '' }}" name="class_data[content]" value="{{ old('content') }}" required></textarea>
 
                                         @if ($errors->has('content'))
                                             <span class="invalid-feedback">
@@ -40,26 +40,8 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group row">
-                                    <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                                    <div class="col-md-6">
-                                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                                    </div>
-                                </div>
-
-
-
-                                <div class="form-group row mb-0">
-                                    <div class="col-md-6 offset-md-4">
-                                        <button name="isDirector" value="1" type="submit" class="btn btn-primary">
-                                            {{ __('Registrar') }}
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex flex-column">
-                                <h3>Faltas</h3>
+                            <div class="col-5 d-flex flex-column">
+                                <h3 class="text-center">Presença</h3>
 
                                 @if (session('error'))
                                             <span class="alert alert-danger">
@@ -68,10 +50,11 @@
                                 @else
                                 
                                     @foreach($students as $student)
-                                        <div class="row">
+                                        <div class="row pb-2 pt-2 border-bottom">
                                             <div class="col-6 float-left">{{ $student->name }}</div>
-                                            <div class="col-6 float-right">
-                                                <input name="presence" value="{{ $student->id }}" type="checkbox">
+                                            <div class="col-6 ">
+                                                <input id="{{ $student->id }}"name="attendence[{{ $student->id }}]" class="float-right" type="checkbox">
+                                                <input id="{{ $student->id }}b" name="attendence[{{ $student->id }}]" value="0" type="hidden" disabled>
                                             </div>
                                         </div>
                                     @endforeach
@@ -80,6 +63,14 @@
                             </div>
                             
                         </div>
+
+                            <div class="form-group row mb-0 float-right">
+                                <div class="col-md-6">
+                                    <button id="submit_button" name="classroom_id" value="{{ $classroom->id }}" type="submit" class="btn btn-primary">
+                                        {{ __('Registrar Aula') }}
+                                    </button>
+                                </div>
+                            </div>
                         
                     </form>
                 </div>

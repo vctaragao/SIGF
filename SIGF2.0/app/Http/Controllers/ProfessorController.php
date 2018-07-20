@@ -4,6 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Classroom;
+use App\Classes;
+use App\Attendence;
+use App\User;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
+
 
 class ProfessorController extends StudentController
 {
@@ -60,44 +66,114 @@ class ProfessorController extends StudentController
         return view('classroom.class.create', ['classroom' => $classroom, 'students' => $students]);
     }
 
-    public function registerClass($classroom_id, Request $request){
+    public function registerClass(Request $request){
+
+        $data = $request->all();
+
+
+        $data['class_data']['date'] = $this->prepareDate($data['class_data']['date']);
+
+        $validator = Validator::make($data, [
+            'class_data.date' => 'required|date',
+        ]);
+
+        $attendece = new Attendence;
+        $class = new Classes;
+
+        $result = $class->create($data['class_data'], $request->classroom_id);
+
+        if($result){
+            
+            $attendence = $attendece->create($data, $class->id);
+
+
+            if($attendence){
+                $request->session()->flash('success', 'Aula adicionada com sucesso');   
+            }
+
+        }else{
+            
+            $request->session()->flash('success', 'Não foi possivel adicionar a aula');
+        }
+
+        return redirect('/classroom/'.$request->classroom_id);
         
-        $classroom = Classroom::find($classroom_id);
-        echo $request;
-        echo "<br>";
-        echo $classroom_id;
-        die();
     }
 
-    public function editClass(){
+    public function editClass($class_id){
 
-    }
+        $class = Classes::find($class_id);
+        $students = $class->getPresenceInTheClass();
 
-    public function removeClass(){
+        $class->date = date('d-m-Y', strtotime($class->date));
+        $class->date = str_replace('-', '/',  $class->date);
 
-    }
-
-    public function addPresence(){
+        return view('classroom.class.edit', ['class' => $class, 'students' => $students]);        
 
     }
 
-    public function editPresence(){
+    public function updateClass(Request $request){
+
+        $data = $request->all();
+
+        $class = Classes::find($data['class_id']);
+
+        $data['class_data']['date'] = $this->prepareDate($data['class_data']['date']);
+
+        $result = $class->updateClass($data['class_data']);
+
+        $attendence = new Attendence;
+
+        $result2 = $attendence->updateAttendence($data);
+
+        if($result && $result2){
+            $request->session()->flash('success', 'Aula atualizada com sucesso');
+
+        }else{
+            $request->session()->flash('error', 'Não foi possível atualizar a aula');
+        }
+
+        return redirect('/showClassInfo/'.$class->classroom_id.'/'.$class->id);
+    }
+
+    public function removeClass(Request $request){
+
+        $data = $request->all();    
+
+        $class = Classes::find($request->class_id);
+        $user = User::find($request->user_id);
+        $attendence = new Attendence;
+
+        if(Hash::check($request->confirm_password, $user->password) && $user->isProfessor){
+
+           $result = $attendence->deletePresences($data['class_id']);
+
+
+            if($result){
+
+                $class->delete();
+
+                $request->session()->flash('success', 'Aula excluida com sucesso');
+            }else{
+                $request->session()->flash('error', 'Não possivel excluir a aula.');
+            }
+
+            return redirect('/showClasses/'.$class->classroom_id);
+
+        }else{
+            return back()->with('error','Senha incorreta');
+        }
+
+
 
     }
 
-    public function removePresence(){
+    protected function prepareDate($date){
 
-    }
+        $date = str_replace('/', '-', $date);
 
-    public function addClassContent(){
+        $date = date('Y-m-d', strtotime($date));
 
-    }
-
-    public function editClassContent(){
-
-    }
-
-    public function removeClassContent(){
-    	
+        return $date;
     }
 }

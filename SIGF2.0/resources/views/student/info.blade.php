@@ -19,12 +19,10 @@
 
                     <p>Informações: </p>
 
-                    Nome: {{ $current_student->name }}
                     <br>
                     sexo: {{ $current_student->sex }}
                     <br>
-                    CPF: {{ $current_student->cpf }}
-                    <br>
+                    @if(Auth::user()->isDirector) {{ "CPF: " .$current_student->cpf }}  <br> @endif
                     Telefone : {{ $current_student->phone }}
                     <br>
                     Curso : {{ $current_student->course }}

@@ -25,7 +25,7 @@
                     <br>
                     sexo: {{ $current_student->sex }}
                     <br>
-                    CPF: {{ $current_student->cpf }}
+                    CPF:  {{$current_student->cpf }}
                     <br>
                     Telefone : {{ $current_student->phone }}
                     <br>

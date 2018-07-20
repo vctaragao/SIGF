@@ -127,7 +127,38 @@
     </div>
 
     <footer>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js" type="text/javascript" charset="utf-8" async defer></script>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+        <script type="text/javascript" charset="utf-8" async defer>
+        
+            $(document).ready(function(){
+
+              $("#submit_button").click(function(){
+                $("input[type=checkbox]").each(function(){
+                    if(!$(this)[0].checked){
+
+                        console.log($(this).attr("id"));
+                        console.log($(this)[0].disabled);
+                        $(this)[0].disabled = true;
+                        console.log($(this)[0].disabled);
+
+                        var id = $(this).attr("id") + "b";
+
+                       console.log($("#"+id)[0].disabled);
+                       $("#"+id)[0].disabled = false;
+                       console.log($("#"+id)[0].disabled);
+                    }
+                });
+              });
+
+            });
+        </script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js" type="text/javascript" charset="utf-8" async defer>
+        </script>
+
+        
     </footer>
 </body>
 </html>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Classroom;
+use App\Classes;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -90,6 +91,26 @@ class StudentController extends Controller
         $leds = $classroom->getLed();
 
         return view('classroom.info', ['classroom' => $classroom, 'leaders' => $leaders, 'leds' => $leds]);
+   }
+
+   public function showClasses($classroom_id){
+
+       $classes = Classes::where('classroom_id', '=', $classroom_id)->orderBy('date')->get();
+
+       $classroom = Classroom::find($classroom_id);
+
+       return view('classroom.class.showAll', ['classes' => $classes, 'classroom' => $classroom]);
+   }
+
+   public function showClassInfo($classroom_id, $class_id){
+
+      $class = Classes::find($class_id);
+
+      $presence = $class->attendence()->select('attendences.presence')->where('user_id', '=', Auth::id())->get();
+
+      $classroom = Classroom::find($classroom_id);
+
+      return view('classroom.class.info', ['class' => $class, 'classroom' => $classroom, 'presence' => $presence]);
    }
 
    public function seeAllDirectors(){

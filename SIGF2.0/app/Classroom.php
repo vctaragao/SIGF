@@ -22,6 +22,11 @@ class Classroom extends Model
         return $this->belongsToMany('App\User', 'user_classrooms');
     }
 
+    public function classes(){
+        
+        return $this->hasMany('App\Class');
+    }
+
     public function insertStudentAs($student_id, $role){
 
 
@@ -55,6 +60,7 @@ class Classroom extends Model
                                 ->where('user_classrooms.classroom_id', '=', $this->id)
                                 ->where('user_classrooms.role', '=', 'cc')
                                 ->where('user_classrooms.wait', '=', '0' )
+                                ->orderBy('name')
                                 ->get();
 
     	return $leaders;
@@ -67,6 +73,7 @@ class Classroom extends Model
             ->where('user_classrooms.classroom_id', '=', $this->id)
             ->where('user_classrooms.role', '=', 'cd')
             ->where('user_classrooms.wait', '=', '0' )
+            ->orderBy('name')
             ->get();
 
 
@@ -86,7 +93,7 @@ class Classroom extends Model
 
     public function getStudentsInCLassroom(){
         
-        $students = $this->users()->select('users.id', 'name')->where('user_classrooms.classroom_id', '=', $this->id)->get();
+        $students = $this->users()->select('users.id', 'name')->where('user_classrooms.classroom_id', '=', $this->id)->orderBy('name')->get();
 
         return $students;
 

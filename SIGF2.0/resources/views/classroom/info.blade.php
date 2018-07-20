@@ -7,6 +7,7 @@
             <div class="card">
                 <div class="card-header">Turma {{ $classroom->name }} Horario: {{ $classroom->schedule }}  
                   @if(Auth::user()->isDirector || Auth::user()->isProfessor)
+                  <a class="btn btn-primary float-right ml-2" href={{ url('/showClasses/'.$classroom->id) }}>Ver Aulas</a>
                   <a class="btn btn-primary float-right ml-2" href={{ url('/addClassToClassroom/'.$classroom->id) }}>Adicionar Aula</a>
                     <a class="btn btn-primary float-right" href={{ url('/addStudentToClassroom/'.$classroom->id) }}>Adicionar aluno</a>
                   @endif
