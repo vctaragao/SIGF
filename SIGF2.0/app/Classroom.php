@@ -27,6 +27,40 @@ class Classroom extends Model
         return $this->hasMany('App\Class');
     }
 
+    public function create($request){
+
+        $this->name = $request->name;
+        $this->schedule = $request->schedule;
+        $this->day = $request->day;
+        $this->size = $request->size;
+
+        $result = $this->save();
+
+        return ($result) ? true : false;
+    }
+
+    public function updateClassroom($request){
+
+        $this->name = $request->name;
+        $this->schedule = $request->schedule;
+        $this->day = $request->day;
+        $this->size = $request->size;
+
+        $result = $this->save();
+
+        return ($result) ? true : false;
+
+    }
+
+    public function removeClassroom(){
+
+       $this->active = 0;
+
+       $result = $this->save();
+
+       return ($result) ? true : false;
+    }
+
     public function insertStudentAs($student_id, $role){
 
 

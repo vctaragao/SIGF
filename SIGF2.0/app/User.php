@@ -62,4 +62,50 @@ class User extends Authenticatable
 
         return $this->belongsToMany('App\Classes', 'attendences');
     }
+
+    public function getNotDirectors(){
+
+        return $this->where('isDirector', '=', 0)->orderBy('name')->get();
+    }
+
+    public function getNotProfessors(){
+
+        return $this->where('isProfessor', '=', 0)->orderBy('name')->get();
+    }
+
+    public function becomeDirector(){
+
+        $this->isDirector = 1;
+
+        $result = $this->save();
+
+        return ($result) ? true : false;
+    }
+
+    public function removeDirector(){
+
+        $this->isDirector = 0;
+
+        $result = $this->save();
+
+        return ($result) ? true : false;
+    }
+
+    public function becomeProfessor(){
+
+        $this->isProfessor = 1;
+
+        $result = $this->save();
+
+        return ($result) ? true : false;
+    }
+
+    public function removeProfessor(){
+
+        $this->isProfessor = 0;
+
+        $result = $this->save();
+
+        return ($result) ? true : false;
+    }
 }

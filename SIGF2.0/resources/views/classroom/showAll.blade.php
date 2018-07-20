@@ -8,9 +8,9 @@
                 <div class="card-header">Turmas</div>
 
                 <div class="card-body">
-                    @if (session('status'))
+                    @if (session('success'))
                         <div class="alert alert-success">
-                            {{ session('status') }}
+                            {{ session('success') }}
                         </div>
                     @endif
 

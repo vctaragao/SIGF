@@ -20,7 +20,20 @@ Route::get('/home', 'HomeController@index')->name('home')->middleware('guest');
 
 
 Route::middleware(['isDirector'])->group(function(){
-		
+	
+	Route::get('/addClassroom', 'DirectorController@createClassroom');
+	Route::post('/addClassroom', 'DirectorController@insertClassroom');
+	Route::get('/editClassroom/{id}', 'DirectorController@editClassroom');
+	Route::post('/editClassroom', 'DirectorController@updateClassroom');
+	Route::post('/removeClassroom', 'DirectorController@removeClassroom');
+	Route::get('/addDirector', 'DirectorController@addDirector');
+	Route::get('/addDirector/{id}', 'DirectorController@registerDirector');
+	Route::get('/removeDirector', 'DirectorController@removeDirector');
+	Route::get('/removeDirector/{id}', 'DirectorController@deleteDirector');
+	Route::get('/addProfessor', 'DirectorController@addProfessor');
+	Route::get('/addProfessor/{id}', 'DirectorController@registerProfessor');
+	Route::get('/removeProfessor', 'DirectorController@removeProfessor');
+	Route::get('/removeProfessor/{id}', 'DirectorController@deleteProfessor');
 });
 
 

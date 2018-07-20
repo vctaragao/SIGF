@@ -5,9 +5,10 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Adicionar Turma') }}</div>
+                <div class="card-header">{{ __('Criar Turma') }}</div>
 
                 <div class="card-body">
+
                     <form method="POST" action="{{ url('/addClassroom') }}">
                         @csrf
 
@@ -29,7 +30,7 @@
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Horário') }}</label>
 
                             <div class="col-md-6">
-                                <input id="schedule" type="schedule" class="form-control{{ $errors->has('schedule') ? ' is-invalid' : '' }}" name="schedule" value="{{ old('schedule') }}" >
+                                <input id="schedule" type="schedule" class="form-control{{ $errors->has('schedule') ? ' is-invalid' : '' }}" name="schedule" value="{{ old('schedule') }}" data-mask="00:00">
 
                                 @if ($errors->has('schedule'))
                                     <span class="invalid-feedback">
@@ -84,7 +85,7 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
+                                    {{ __('Criar turma') }}
                                 </button>
                             </div>
                         </div>

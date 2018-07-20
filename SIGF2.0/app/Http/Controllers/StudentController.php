@@ -26,6 +26,10 @@ class StudentController extends Controller
 
         $user = User::find($student_id);
 
+        if($user->id != Auth::user()->id && !Auth::user()->isDirector){
+          return back();
+        }
+
         return view('student.edit', ['user' => $user]);
     }
 
@@ -58,11 +62,11 @@ class StudentController extends Controller
 
    }
 
-   public function seeAllStudents(){
+   public function seeAllStudents($flag = null){
 
         $students = User::all();
 
-        return view('student.showAll', ['students' => $students]);
+        return view('student.showAll', ['students' => $students, 'flag' => $flag]);
 
    }
 
@@ -77,7 +81,7 @@ class StudentController extends Controller
 
    public function seeAllClassrooms(){
 
-        $classrooms = Classroom::all();
+        $classrooms = Classroom::all()->where('active' , '=' , '1');
 
         return view('classroom.showAll',['classrooms' => $classrooms]);
 
@@ -95,7 +99,16 @@ class StudentController extends Controller
 
    public function showClasses($classroom_id){
 
-       $classes = Classes::where('classroom_id', '=', $classroom_id)->orderBy('date')->get();
+       //$classes = Classes::where('classroom_id', '=', $classroom_id)->orderBy('date')->get();
+
+      $classes = new Classes;
+      $classes = $classes->attendence()->where('classrooms.active', '=', 1)->where('classes.classroom_id', '=', $classroom_id)->orderBy('classes.date')->get();
+
+      foreach ($classes as $class) {
+        echo $class;
+      }
+
+      die();
 
        $classroom = Classroom::find($classroom_id);
 
@@ -113,11 +126,11 @@ class StudentController extends Controller
       return view('classroom.class.info', ['class' => $class, 'classroom' => $classroom, 'presence' => $presence]);
    }
 
-   public function seeAllDirectors(){
+   public function seeAllDirectors($flag = null){
 
         $directors = User::where('isDirector', '=', 1)->get();
 
-        return view('director.showAll', ['directors' => $directors]);
+        return view('director.showAll', ['directors' => $directors, 'flag' => $flag]);
    }
 
    public function seeDirectorInfo($director_id){
@@ -128,11 +141,11 @@ class StudentController extends Controller
 
    }
 
-   public function seeAllProfessors(){
+   public function seeAllProfessors($flag = null){
 
         $professors = User::where('isProfessor', '=', 1)->get();
 
-        return view('professor.showAll', ['professors' => $professors]);
+        return view('professor.showAll', ['professors' => $professors, 'flag' => $flag]);
 
    }
 

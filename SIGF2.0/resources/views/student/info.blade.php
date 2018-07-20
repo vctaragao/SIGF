@@ -5,7 +5,10 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Pefil de {{ $current_student->name }}</div>
+                <div class="card-header">Pefil de {{ $current_student->name }}
+                    @if(Auth::user()->isDirector) 
+                        <a href="{{ url('/studentEdit/'.$current_student->id) }}" class="btn btn-primary float-right">Editar informações</a>
+                    @endif</div>
 
                 <div class="card-body">
                     @if (session('status'))

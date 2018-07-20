@@ -30,6 +30,12 @@ class AlterClassesAndAttendencesTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('attendences', function (Blueprint $table){
+            $table->dropColumn('user_id');
+            $table->dropColumn('class_id');
+        });
+         Schema::table('classes', function (Blueprint $table){
+            $table->dropColumn('classroom_id');
+        });
     }
 }

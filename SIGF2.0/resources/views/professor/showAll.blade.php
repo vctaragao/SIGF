@@ -25,9 +25,9 @@
                        <a class="" href={{ url('/professor/'.$professor->id) }}>{{ $professor->name }}</a>
                      </div>
 
-                     @if(!empty($flag))
-                        <div class="col-6">
-                            <a href={{ url('directorAdd/'.$professor->id) }} class="float-right btn btn-primary">Tornar Diretor</a>
+                     @if(!empty($flag) && $flag == 'remove')
+                        <div class="col-6 float-right">
+                            <a href="{{ url('/removeProfessor/'.$professor->id) }}" class="float-right btn btn-danger">Remover</a>
                         </div>
                      @endif
                    </div>

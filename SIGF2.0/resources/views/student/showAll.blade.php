@@ -20,7 +20,7 @@
 
                     @foreach($students as $student)
 
-              @if(!empty($flag))
+              @if(!empty($flag) && $flag == 'add')
                      <form method="POST" action={{ url('/addStudentToClassroom/'.$classroom->id)}}>
                                 
                                 {{ csrf_field() }}
@@ -55,8 +55,20 @@
 
 
                      @endif
+      
+                          @if(!empty($flag) && $flag == 'director')
+                          <div class="col-3 float-right">
+                            <a href="{{ url('/addDirector/'.$student->id) }}" class="btn btn-primary float-right">Adicionar Diretor</a>
+                          </div>
+                            
+                          @endif
 
-
+                          @if(!empty($flag) && $flag == 'professor')
+                          <div class="col-3 float-right">
+                            <a href="{{ url('/addProfessor/'.$student->id) }}" class="btn btn-primary float-right">Adicionar Professor</a>
+                          </div>
+                            
+                          @endif
                    </div>
 
                 </form>

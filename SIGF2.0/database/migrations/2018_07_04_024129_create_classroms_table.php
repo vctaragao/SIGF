@@ -19,6 +19,7 @@ class CreateClassromsTable extends Migration
             $table->string('schedule');
             $table->string('day');
             $table->integer('size')->default('60');
+            $table->boolean('active')->default('1');
             $table->timestamps();
         });
     }

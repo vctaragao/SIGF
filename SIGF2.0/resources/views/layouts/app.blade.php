@@ -51,22 +51,32 @@
                                      Alunos
                                    </a>
                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                     <a class="dropdown-item" href={{ url('/studentShowAll') }}>Ver alunos</a>
+                                     <a class="dropdown-item" href={{ url('/studentAll') }}>Ver alunos</a>
                                      <a class="dropdown-item" href={{ url('/directorRegister') }}>Adicionar aluno</a>
                                      <div class="dropdown-divider"></div>
                                      <a class="dropdown-item" href={{ url('/studentDelete') }}>Remover aluno</a>
                                    </div>
                                  </li>
-                            <li class="nav-item"> <a class="nav-link" href="">Professores</a></li>
+                             <li class="nav-item dropdown">
+                                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                     Professores
+                                   </a>
+                                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                     <a class="dropdown-item" href={{ url('/professorAll') }}>Ver professores</a>
+                                     <a class="dropdown-item" href={{ url('/addProfessor') }}>Adicionar professor</a>
+                                     <div class="dropdown-divider"></div>
+                                     <a class="dropdown-item" href={{ url('/removeProfessor') }}>Remover professor</a>
+                                   </div>
+                            </li>
                              <li class="nav-item dropdown">
                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                      Diretores
                                    </a>
                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                     <a class="dropdown-item" href={{ url('/directorShowAll') }}>Ver Diretores</a>
-                                     <a class="dropdown-item" href={{ url('/directorAdd') }}>Adicionar Diretor</a>
+                                     <a class="dropdown-item" href={{ url('/directorAll') }}>Ver Diretores</a>
+                                     <a class="dropdown-item" href={{ url('/addDirector') }}>Adicionar Diretor</a>
                                      <div class="dropdown-divider"></div>
-                                     <a class="dropdown-item" href="#">Remover Diretor</a>
+                                     <a class="dropdown-item" href="/removeDirector">Remover Diretor</a>
                                    </div>
                                  </li>
                             <li class="nav-item dropdown">
@@ -74,7 +84,7 @@
                                      Turma
                                    </a>
                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                     <a class="dropdown-item" href={{ url('/Classrooms') }}>Ver turmas</a>
+                                     <a class="dropdown-item" href={{ url('/classroomAll') }}>Ver turmas</a>
                                      <a class="dropdown-item" href={{ url('/addClassroom') }}>Criar Turma</a>
                                      <div class="dropdown-divider"></div>
                                      <a class="dropdown-item" href="#">Remover Turma</a>
@@ -103,13 +113,9 @@
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-                                    @if(Auth::user()->isDirector)
-                                        <a class="dropdown-item" href={{ url('/directorEdit/'. Auth::user()->id) }} >Editar informações</a>
-                                    @elseif(Auth::user()->isProfessor)
-                                        <a class="dropdown-item" href={{ url('/professorEdit/'. Auth::user()->id) }} >Editar informações</a>
-                                    @else
+                                    
                                         <a class="dropdown-item" href={{ url('/studentEdit/'. Auth::user()->id) }} >Editar informações</a>
-                                    @endif
+
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>

@@ -20,14 +20,17 @@
 
                     @foreach($directors as $director)
 
-                   <dir class="row">
+                   <div class="row pb-2 pt-2 border-bottom">
                      <div class="col-6 float-left">
                        <a href={{ url('/director/'.$director->id) }}>{{ $director->name }}</a>
                      </div>
-                     {{-- <div class="col-6">
-                        <a href="{{ url('/directorDelete/'.$director->id) }}" class="btn btn-danger">Remover</a> 
-                     </div> --}}
-                   </dir>
+
+                     @if(!empty($flag) && $flag == 'remove')
+                         <div class="col-6 float-right">
+                            <a href="{{ url('/removeDirector/'.$director->id) }}" class="btn btn-danger float-right">Remover</a> 
+                         </div>
+                    @endif 
+                   </div>
 
                     @endforeach
                     
