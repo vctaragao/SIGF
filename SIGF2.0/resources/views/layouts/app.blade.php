@@ -87,9 +87,21 @@
                                      <a class="dropdown-item" href={{ url('/classroomAll') }}>Ver turmas</a>
                                      <a class="dropdown-item" href={{ url('/addClassroom') }}>Criar Turma</a>
                                      <div class="dropdown-divider"></div>
-                                     <a class="dropdown-item" href="#">Remover Turma</a>
+                                     <a class="dropdown-item" href={{ url('/subscription') }}>Iscrições</a>
                                    </div>
                                  </li>
+
+                            <li class="nav-item dropdown">
+                                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                     Inscrições
+                                   </a>
+                                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                     <a class="dropdown-item" href={{ url('/openClassrooms') }}>Ver turmas abertas</a>
+                                     <a class="dropdown-item" href={{ url('/openSubscription') }}>Abrir inscrições</a>
+                                     <div class="dropdown-divider"></div>
+                                     <a class="dropdown-item" href={{ url('/closeSubscription') }}>Fechar inscrições</a>
+                                   </div>
+                            </li>
                             
                         @endif
                         
@@ -128,6 +140,13 @@
         </nav>
 
         <main class="py-4">
+
+            @if(session('subscription-status'))
+                <div class="alert alert-info">
+                    {{ session('subscription-status') }}
+                </div>
+            @endif
+
             @yield('content')
         </main>
     </div>

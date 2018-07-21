@@ -11,15 +11,25 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class StudentController extends Controller
 {
 
-    public function index(Request $request){
+    public function index(Request $request, $flag = null){
 
     	$current_student = $request->user();
 
-    	return view('home',['current_student' => $current_student]);
+      $openClassrooms = new Classroom;
+      $openClassrooms = $openClassrooms->getOpenClassrooms();
+
+      if(count($openClassrooms)){
+        $flag = 'open';
+      }else{
+        $openClassrooms = null;
+      }
+
+    	return view('home',['current_student' => $current_student, 'flag' => $flag, 'classrooms' => $openClassrooms]);
     }
 
     public function edit($student_id){
@@ -154,6 +164,42 @@ class StudentController extends Controller
         $professor = User::find($professor_id);
 
         return view('professor.info', ['professor' => $professor]);
+   }
+
+   public function classroomsSubscription(Request $request){
+
+        $data = $request->all();
+
+        if(!array_key_exists('role', $data)){
+
+          return back()->with('subscription-error', 'Não selecionou os campos de papel na turma');
+
+        }elseif(!array_key_exists('classrooms', $data)){
+
+          return back()->with('subscription-error', 'Não selecionou a(s) turma(s) que deseja se inscrever');
+
+        }elseif(!(!array_diff_key($data['role'], $data['classrooms']) && !array_diff_key($data['classrooms'], $data['role']))){
+
+          return back()->with('subscription-error', 'Não selecionou os campos de papel e seleção de turma corretamente');
+       }
+
+       foreach ($data['classrooms'] as $classroom_id => $value) {
+            
+            $data['classrooms'][$classroom_id] = 1;
+       }
+
+
+        foreach ($data['classrooms'] as $classroom_id => $value) {
+
+            $classroom = Classroom::find($classroom_id);
+
+            $result = $classroom->insertStudentAs($data['student_id'], $data['role'][$classroom_id]);
+        }
+        
+        
+
+        return back()->with('subscription-success','Inscrições realizadas com sucesso');
+
    }
 
 }

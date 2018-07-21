@@ -184,4 +184,108 @@ class DirectorController extends StudentController
 
         return back()->with('success','Professor removido com sucesso');
     }
+
+    public function seeOpenClassrooms($flag = null){
+
+        $openClassrooms = new Classroom;
+
+        $openClassrooms = $openClassrooms->getOpenClassrooms();
+
+        if(!count($openClassrooms)){
+            return back()->with('subscription-status','Nenhuma turma está aberta para inscrição');
+        }
+
+        return view('subscription.showAll', ['classrooms' => $openClassrooms, 'flag' => $flag]);
+
+   }
+
+   public function openClassrooms(){
+
+        $closedClassrooms = new Classroom;
+
+        $closedClassrooms = $closedClassrooms->getClosedClassrooms();
+
+        if(!count($closedClassrooms)){
+            return back()->with('subscription-status','Nenhuma turma está sujeita a ser aberta para inscrição');
+        }
+
+        $flag = 'open';
+
+
+        return view('subscription.showAll', ['classrooms' => $closedClassrooms, 'flag' => $flag]);
+   }
+
+   public function registerOpenClassrooms(Request $request){
+
+        $data = $request->all();
+
+         if(empty($data['classrooms'])){
+            return back()->with('error', 'Não foi selecionada nenhuma turma');
+        }
+
+
+        foreach ($data['classrooms'] as $key => $value) {
+            if($value == 'on'){
+                $data['classrooms'][$key] = 1;
+            }
+
+        }
+
+        if(!Hash::check($request->password_confirmation, Auth::user()->password)){
+
+            return back()->with('error', 'Senha incorreta');
+
+        }
+
+
+        foreach ($data['classrooms'] as $classroom_id => $open) {
+
+            $classroom = Classroom::find($classroom_id);
+
+            $classroom->openClassroom($open);
+        }
+
+        $request->session()->flash('subscription-status', 'Turmas abertas com sucesso');
+
+        return redirect('/home');
+   }
+
+   public function closeClassrooms(){
+
+        return $this->seeOpenClassrooms('close');
+   }
+
+   public function registerClosedClassrooms(Request $request){
+
+        $data = $request->all();
+
+        if(empty($data['classrooms'])){
+            return back()->with('error', 'Não foi selecionada nenhuma turma');
+        }
+
+        foreach ($data['classrooms'] as $key => $value) {
+            if($value == 'on'){
+                $data['classrooms'][$key] = 0;
+            }
+
+        }
+
+        if(!Hash::check($request->password_confirmation, Auth::user()->password)){
+
+            return back()->with('error', 'Senha incorreta');
+
+        }
+
+
+        foreach ($data['classrooms'] as $classroom_id => $close) {
+
+            $classroom = Classroom::find($classroom_id);
+
+            $classroom->closeClassroom($close);
+        }
+
+        $request->session()->flash('subscription-status', 'Turmas fechadas com sucesso');
+
+        return redirect('/home');
+   }
 }

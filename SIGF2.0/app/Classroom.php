@@ -133,6 +133,34 @@ class Classroom extends Model
 
     }
 
+    public function getOpenClassrooms(){
+
+        return $this->where('isOpen', '=', 1)->where('active', '=', 1)->get();
+    }
+
+    public function getClosedClassrooms(){
+
+        return $this->where('isOpen', '=', 0)->where('active', '=', 1)->get();
+    }
+
+    public function openClassroom($open){
+
+        $this->isOpen = $open;
+
+        $result = $this->save();
+
+        return ($result) ? true : false;
+    }
+
+    public function closeClassroom($close){
+
+        $this->isOpen = $close;
+
+        $result = $this->save();
+
+        return ($result) ? true : false;
+    }
+
     private function prepareQueryResultToArray($results){
 
         $inStudentsPrepared = [];

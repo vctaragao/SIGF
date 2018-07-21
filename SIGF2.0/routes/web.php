@@ -19,6 +19,7 @@ Route::get('/home', 'HomeController@index')->name('home')->middleware('guest');
 
 
 
+
 Route::middleware(['isDirector'])->group(function(){
 	
 	Route::get('/addClassroom', 'DirectorController@createClassroom');
@@ -34,6 +35,11 @@ Route::middleware(['isDirector'])->group(function(){
 	Route::get('/addProfessor/{id}', 'DirectorController@registerProfessor');
 	Route::get('/removeProfessor', 'DirectorController@removeProfessor');
 	Route::get('/removeProfessor/{id}', 'DirectorController@deleteProfessor');
+	Route::get('/openClassrooms', 'DirectorController@seeOpenClassrooms');
+	Route::get('/openSubscription', 'DirectorController@openClassrooms');
+	Route::post('/openSubscription', 'DirectorController@registerOpenClassrooms');
+	Route::get('/closeSubscription', 'DirectorController@closeClassrooms');
+	Route::post('/closeSubscription', 'DirectorController@registerClosedClassrooms');
 });
 
 
@@ -53,7 +59,7 @@ Route::middleware(['isStudent'])->group(function(){
 	Route::get('/director/{id}', 'StudentController@seeDirectorInfo');
 	Route::get('/showClasses/{id}', 'StudentController@showClasses');
 	Route::get('/showClassInfo/{classroom_id}/{id}', 'StudentController@showClassInfo');
-
+	Route::post('/subscription', 'StudentController@classroomsSubscription');
 });
 
 
