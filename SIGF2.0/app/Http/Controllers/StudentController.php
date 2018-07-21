@@ -109,8 +109,6 @@ class StudentController extends Controller
 
    public function showClasses($classroom_id){
 
-       //$classes = Classes::where('classroom_id', '=', $classroom_id)->orderBy('date')->get();
-
       $classes = new Classes;
       $classes = $classes->attendence()->where('classrooms.active', '=', 1)->where('classes.classroom_id', '=', $classroom_id)->orderBy('classes.date')->get();
 
@@ -181,6 +179,11 @@ class StudentController extends Controller
         }elseif(!(!array_diff_key($data['role'], $data['classrooms']) && !array_diff_key($data['classrooms'], $data['role']))){
 
           return back()->with('subscription-error', 'Não selecionou os campos de papel e seleção de turma corretamente');
+
+       }elseif(!Hash::check($request->password_confirmation, Auth::user()->password)){
+
+          return back()->with('subscription-error', 'Senha incorreta');
+
        }
 
        foreach ($data['classrooms'] as $classroom_id => $value) {
@@ -194,9 +197,12 @@ class StudentController extends Controller
             $classroom = Classroom::find($classroom_id);
 
             $result = $classroom->insertStudentAs($data['student_id'], $data['role'][$classroom_id]);
+
+            if(!$result){
+              return back()->with('subscription-error', 'Você já está matriculado na turma: '. $classroom->name);
+            }
         }
-        
-        
+      
 
         return back()->with('subscription-success','Inscrições realizadas com sucesso');
 

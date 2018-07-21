@@ -63,6 +63,13 @@ class Classroom extends Model
 
     public function insertStudentAs($student_id, $role){
 
+        $wait = 0;
+
+        if($this->isStudentInClassroom($student_id)){ 
+            return false;
+        }elseif($this->inQueue($role)){
+            $wait = 1;
+        }
 
 
         $relation = new User_Classroom;
@@ -70,12 +77,34 @@ class Classroom extends Model
         $relation->user_id = $student_id;
         $relation->classroom_id = $this->id;
         $relation->role = $role;
-        $relation->wait = 0;
+        $relation->wait = $wait;
 
-        $result = $relation->save();
+        $relation->save();
 
-        return ($result) ? true : false;
+        return true;
         
+    }
+
+    protected function isStudentInClassroom($student_id){
+
+        $student = $this->users()->where('user_classrooms.user_id', '=', $student_id)->get();
+
+        return (count($student)) ? true : false;
+    }
+
+    protected function inQueue($role){
+
+        if($role == 'cc'){
+            $students = $this->getLeader();
+        }elseif($role == 'cd'){
+            $students = $this->getLed();
+        }
+
+        if(count($students) >= ($this->size/2)){
+            return true;
+        }
+
+        return false;
     }
 
     public function removeStudent($student_id){
@@ -90,11 +119,10 @@ class Classroom extends Model
 
     public function getLeader(){
 
-        $leaders = $this->users()->select('users.id','name','phone')
+        $leaders = $this->users()->select('users.id','name','phone','user_classrooms.wait')
                                 ->where('user_classrooms.classroom_id', '=', $this->id)
                                 ->where('user_classrooms.role', '=', 'cc')
-                                ->where('user_classrooms.wait', '=', '0' )
-                                ->orderBy('name')
+                                ->orderBy('user_classrooms.wait')
                                 ->get();
 
     	return $leaders;
@@ -102,12 +130,11 @@ class Classroom extends Model
 
     public function getLed(){
     	$leds = DB::table('users')
-  			->select('users.id','name', 'phone', 'user_classrooms.role')
+  			->select('users.id','name', 'phone', 'user_classrooms.role', 'user_classrooms.wait')
             ->leftJoin('user_classrooms', 'users.id', '=', 'user_classrooms.user_id')
             ->where('user_classrooms.classroom_id', '=', $this->id)
             ->where('user_classrooms.role', '=', 'cd')
-            ->where('user_classrooms.wait', '=', '0' )
-            ->orderBy('name')
+            ->orderBy('user_classrooms.wait')
             ->get();
 
 
@@ -159,6 +186,79 @@ class Classroom extends Model
         $result = $this->save();
 
         return ($result) ? true : false;
+    }
+
+    public function putOnQueue($student_id){
+
+        $user = User_Classroom::where('user_id' , '=', $student_id)->where('classroom_id', '=', $this->id)->get();
+
+        $user = User_Classroom::find($user[0]->id);
+
+        $user->wait = 1;
+        $user->save();
+
+        return true;
+    }
+
+    public function putOffQueue($student_id){
+
+        $user = User_Classroom::where('user_id' , '=', $student_id)->where('classroom_id', '=', $this->id)->get();
+
+        if($this->isClassroomFull($user[0]->role)){
+            return false;
+        }
+
+
+        $user = User_Classroom::find($user[0]->id);
+
+        $user->wait = 0;
+        $user->save();
+        $user->created_at = $user->updated_at;
+        $user->save(); 
+
+        return true;
+    }
+
+    protected function isClassroomFull($role){
+
+        if($role == 'cc'){
+
+            $leaders = $this->getLeadersInClassroom();
+            return (count($leaders) < ($this->size/2)) ? false : true;
+
+        }elseif($role == 'cd'){
+
+            $leds = $this->getLedsInClassroom();
+            return (count($leds) < ($this->size/2)) ? false : true;
+
+        }
+
+        
+    }
+
+    private function getLeadersInClassroom(){
+        $leaders = $this->users()->select('users.id','name','phone','user_classrooms.wait')
+                                ->where('user_classrooms.classroom_id', '=', $this->id)
+                                ->where('user_classrooms.role', '=', 'cc')
+                                ->where('user_classrooms.wait', '=', 0)
+                                ->orderBy('user_classrooms.updated_at')
+                                ->get();
+
+        return $leaders;
+    }
+
+    private function getLedsInClassroom(){
+        $leds = DB::table('users')
+            ->select('users.id','name', 'phone', 'user_classrooms.role', 'user_classrooms.wait')
+            ->leftJoin('user_classrooms', 'users.id', '=', 'user_classrooms.user_id')
+            ->where('user_classrooms.classroom_id', '=', $this->id)
+            ->where('user_classrooms.role', '=', 'cd')
+            ->where('user_classrooms.wait', '=', 0)
+            ->orderBy('user_classrooms.updated_at')
+            ->get();
+
+
+        return $leds;
     }
 
     private function prepareQueryResultToArray($results){

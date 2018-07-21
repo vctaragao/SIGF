@@ -19,6 +19,13 @@ Route::get('/home', 'HomeController@index')->name('home')->middleware('guest');
 
 
 
+Route::middleware(['Professor_or_Director'])->group(function(){
+
+	Route::get('/addStudentToClassroom/{id}', 'ProfessorController@addStudentsToClassroom');
+	Route::post('/addStudentToClassroom/{id}', 'ProfessorController@insertStudentsToClassroom');
+	Route::get('/removeStudentFromClassroom/{classroom_id}/{id}', 'ProfessorController@removeStudentsFromClassroom');
+
+});
 
 Route::middleware(['isDirector'])->group(function(){
 	
@@ -40,8 +47,9 @@ Route::middleware(['isDirector'])->group(function(){
 	Route::post('/openSubscription', 'DirectorController@registerOpenClassrooms');
 	Route::get('/closeSubscription', 'DirectorController@closeClassrooms');
 	Route::post('/closeSubscription', 'DirectorController@registerClosedClassrooms');
+	Route::get('/putOnWait/{classroom_id}/{id}', 'DirectorController@putOnWait');
+	Route::get('/putOffWait/{classroom_id}/{id}', 'DirectorController@putOffWait');
 });
-
 
 
 Route::middleware(['isStudent'])->group(function(){
@@ -65,9 +73,6 @@ Route::middleware(['isStudent'])->group(function(){
 
 Route::middleware(['isProfessor'])->group(function(){
 
-	Route::get('/addStudentToClassroom/{id}', 'ProfessorController@addStudentsToClassroom');
-	Route::post('/addStudentToClassroom/{id}', 'ProfessorController@insertStudentsToClassroom');
-	Route::get('/removeStudentFromClassroom/{classroom_id}/{id}', 'ProfessorController@removeStudentsFromClassroom');
 	Route::get('/addClassToClassroom/{id}', 'ProfessorController@addClass');
 	Route::post('/addClassToClassroom', 'ProfessorController@registerClass');
 	Route::get('/classEdit/{id}', 'ProfessorController@editclass');

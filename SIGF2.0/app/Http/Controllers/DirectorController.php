@@ -288,4 +288,25 @@ class DirectorController extends StudentController
 
         return redirect('/home');
    }
+
+   public function putOnWait($classroom_id, $student_id){
+
+        $classroom = Classroom::find($classroom_id);
+
+        $classroom->putOnQueue($student_id);
+
+        return back();
+   }
+
+   public function putOffWait($classroom_id,$student_id){
+
+        $classroom = Classroom::find($classroom_id);
+
+        $result = $classroom->putOffQueue($student_id);
+
+        if(!$result){
+            return back()->with('error', 'Turma cheia!');
+        }
+        return back();
+   }
 }
