@@ -72,6 +72,33 @@ class StudentController extends Controller
 
    }
 
+   public function changePassword($user_id){
+
+      return view('student.changePassword', ['user_id' => $user_id]);
+   }
+
+   public function registerNewPassword($user_id, Request $request){
+      
+      $validate = $request->validate([
+          'password' => 'required|string|min:6|confirmed',
+          'old_password' => 'required',
+      ]);
+
+      if(!Hash::check($request->old_password, Auth::user()->password)){
+        return back()->with('error', 'Senha antiga não está correta');
+      }
+
+      $user = User::find($user_id);
+
+      $user->password = Hash::make($request->password);
+
+      $user->save();
+
+      $request->session()->flash('success', 'Senha alterada com sucesso');
+
+      return redirect('/Home');
+   }
+
    public function seeAllStudents($flag = null){
 
         $students = User::all();

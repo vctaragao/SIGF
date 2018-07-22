@@ -68,6 +68,8 @@ Route::middleware(['isStudent'])->group(function(){
 	Route::get('/showClasses/{id}', 'StudentController@showClasses');
 	Route::get('/showClassInfo/{classroom_id}/{id}', 'StudentController@showClassInfo');
 	Route::post('/subscription', 'StudentController@classroomsSubscription');
+	Route::get('/changePassword/{id}', 'StudentController@changePassword');
+	Route::post('/changePassword/{id}', 'StudentController@registerNewPassword');
 });
 
 
