@@ -34,6 +34,8 @@ trait RegistersUsers
 
         $this->guard()->login($user);
 
+        $request->session()->flash('subscription-status', 'Atualmente voçê não está inscrito em nenhuma turma');
+
         return $this->registered($request, $user)
                         ?: redirect($this->redirectPath());
     }

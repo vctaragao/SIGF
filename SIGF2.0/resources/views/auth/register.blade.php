@@ -122,8 +122,8 @@
                             <div class="col-md-6">
 
                                 <select id="colar" name="colar" class="custom-select {{ $errors->has('colar') ? ' is-invalid' : '' }}">
-                                  <option name="colar" value="{{ old('colar') }}" selected>Transparente</option>
-                                  <option name="colar" value="Tranparente">Tranparente</option>
+                                  <option name="colar" value="Transparente" selected>Transparente</option>
+                                  <option name="colar" value="Transparente">Transparente</option>
                                   <option name="colar" value="Azul">Azul</option>
                                   <option name="colar" value="Azul Avançada">Azul Avançada</option>
                                   <option name="colar" value="Preto">Preto</option>
