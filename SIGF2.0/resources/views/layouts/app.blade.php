@@ -37,6 +37,7 @@
 
                 <a style="width: 10%;" class="mr-4" href="{{ url('/') }}">
                      <img class="img-fluid " src="{{ asset('logo_stick.png') }}" alt="logo forro de segunda">
+
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -46,7 +47,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         @if(Auth::guard()->check() && !(Auth::user()->isDirector))
-
+                            <li class="nav-item"><a class="nav-link" href="{{ url('/') }}">Inicío</a></li>
                             <li class="nav-item"> <a class="nav-link" href={{ url('/studentAll') }}>Ver Alunos</a></li>
                             <li class="nav-item"> <a class="nav-link" href={{ url('/classroomAll') }}>Ver Turmas</a></li>
                             <li class="nav-item"> <a class="nav-link" href={{ url('/professorAll') }}>Ver Professores</a></li>
@@ -54,6 +55,7 @@
 
                         @elseif(Auth::guard()->check() && Auth::user()->isDirector)
 
+                            <li class="nav-item"><a class="nav-link" href="{{ url('/') }}">Inicío</a></li>
                             <li class="nav-item dropdown">
                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                      Alunos
