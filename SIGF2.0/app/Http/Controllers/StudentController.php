@@ -50,10 +50,9 @@ class StudentController extends Controller
             'name' => 'required|max:60',
             'email' => ['required','email', Rule::unique('users')->ignore($request->user_edit),],
             'sex' => 'required',
-            'phone' => 'required|digits_between:10,20',
-            'cpf' => 'required|digits:11',
-            'course' => 'required|alpha',
-            'course' => 'required|alpha',
+            'phone' => 'required|string:14,20',
+            'cpf' => ['required', Rule::unique('users')->ignore($request->user_edit),],
+            'course' => 'required',
         ]);
 
         $user = User::find($request->user_edit);
@@ -118,22 +117,31 @@ class StudentController extends Controller
 
    public function seeAllClassrooms(){
 
+        if(count($classrooms = Classroom::where('isOpen', '=', 1)->get())){
+          $flag = 'open';
+        }
+        else{
+          $flag = 'closed';
+        }
+
         if(Auth::user()->isDirector || Auth::user()->isProfessor){
 
            $classrooms = Classroom::where('active', '=', 1)->get();
 
-           return view('classroom.showAll',['classrooms' => $classrooms]);
+           return view('classroom.showAll',['classrooms' => $classrooms, 'flag' => $flag]);
         }
 
         $classrooms = new Classroom;
 
         $classrooms =  Auth::user()->classrooms()->select('user_classrooms.wait','classrooms.*', 'user_classrooms.role')->get();
 
+
+
         if(!count($classrooms)){
           return back()->with('subscription-status', 'Você não está matriculado em nenhuma turma');
         }
 
-        return view('classroom.showAll',['classrooms' => $classrooms]);
+        return view('classroom.showAll',['classrooms' => $classrooms, 'flag' => $flag]);
 
    }
 

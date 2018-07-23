@@ -34,8 +34,10 @@
 
                    <div class="row pb-3 mb-3 border-bottom">
                      <div class="col-6 float-left">
-                       <a class="" href={{ url('/student/'.$student->id) }}>{{ $student->name }}</a>
+                       @if(Auth::user()->isDirector || Auth::user()->isProfessor) <a class="" href={{ url('/student/'.$student->id) }}>{{ $student->name }}</a> @else {{ $student->name }} @endif
                      </div>
+
+                     <div class="col-3 text-center"><a href="{{ $student->profile }}">Facebook</a></div>
 
                      @if(!empty($flag) && $flag =='add' && (Auth::user()->isProfessor || Auth::User()->isDirector))
 
@@ -63,21 +65,21 @@
                      @endif
       
                           @if(!empty($flag) && $flag == 'director')
-                          <div class="col-6 float-right">
+                          <div class="col-3 float-right">
                             <a href="{{ url('/addDirector/'.$student->id) }}" class="btn btn-primary float-right">Adicionar Diretor</a>
                           </div>
                             
                           @endif
 
                           @if(!empty($flag) && $flag == 'professor')
-                          <div class="col-6 float-right">
+                          <div class="col-3 float-right">
                             <a href="{{ url('/addProfessor/'.$student->id) }}" class="btn btn-primary float-right">Adicionar Professor</a>
                           </div>
 
                           @endif
 
                           @if(!empty($flag) && $flag == 'remove')
-                          <div class="col-6 float-right">
+                          <div class="col-3 float-right">
                             <a href="{{ url('/removeStudent/'.$student->id) }}" class="btn btn-danger float-right">Remover aluno</a>
                           </div>
                             

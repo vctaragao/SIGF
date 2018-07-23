@@ -32,24 +32,36 @@
                             {{ session('success') }}
                         </div>
                     @endif
-
-                    Bem vindo! {{ $current_student->name }}
-                                       
-
+            
+                    <div class="row p-2">
+                      Bem vindo! {{ $current_student->name }}
+                    </div>       
+                    <div class="row p-2">
                     <p>Informações: </p>
-
+                    </div>
                     <br>
-
-                    sexo: {{ $current_student->sex }}
-                    <br>
-                    CPF:  {{$current_student->cpf }}
-                    <br>
-                    Telefone : {{ $current_student->phone }}
-                    <br>
-                    Curso : {{ $current_student->course }}
-                    <br>
-                    email: {{ $current_student->email }}
-                    <br>
+                    
+                    <div class="row p-2">
+                       sexo: {{ $current_student->sex }}
+                    </div>
+                   
+                    <div class="row p-2">
+                      CPF:  {{$current_student->cpf }}
+                    </div>
+                    
+                    <div class="row p-2">
+                       Telefone : {{ $current_student->phone }}
+                    </div>
+                   
+                    <div class="row p-2">
+                      Curso : {{ $current_student->course }}
+                    </div>
+                    
+                    <div class="row p-2">
+                      email: {{ $current_student->email }}
+                    </div>
+                    
+                   
                     {{-- Professor: @if($current_student->isProfessor){{{ "Sim" }}}@else{{{ "Não" }}} @endif
                     <br>
                     Diretor: @if($current_student->isDirector){{{ "Sim" }}}@else{{{ "Não" }}} @endif --}}

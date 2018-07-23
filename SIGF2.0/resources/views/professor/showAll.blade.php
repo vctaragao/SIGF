@@ -21,12 +21,16 @@
                     @foreach($professors as $professor)
 
                    <div class="row pb-3 mb-3 border-bottom">
+
                      <div class="col-6 float-left">
-                       <a class="" href={{ url('/professor/'.$professor->id) }}>{{ $professor->name }}</a>
+                       @if(Auth::user()->isDirector || Auth::user()->isProfessor) <a class="" href={{ url('/professor/'.$professor->id) }}>{{ $professor->name }}</a> @else {{ $professor->name }} @endif
                      </div>
 
+                     <div class="col-3 text-center"><a href="{{ $professor->profile }}">Facebook</a></div>
+
+
                      @if(!empty($flag) && $flag == 'remove')
-                        <div class="col-6 float-right">
+                        <div class="col-3 float-right">
                             <a href="{{ url('/removeProfessor/'.$professor->id) }}" class="float-right btn btn-danger">Remover</a>
                         </div>
                      @endif

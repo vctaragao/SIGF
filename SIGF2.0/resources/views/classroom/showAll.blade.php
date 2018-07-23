@@ -49,11 +49,16 @@
                                   <td> {{ count((Auth::user()->classes()->where('classes.classroom_id', '=', $classroom->id)->where('attendences.presence', '=', 0)->get())) }}
                                   </td>
                                   <td>
+                                  @if($flag == 'open')
+                                    {{ "Processando" }}
+                                  @else
                                     @if(!$classroom->wait)
                                       <a class="btn btn-primary  mr-2" href={{ url('/showClasses/'.$classroom->id) }}>Ver Aulas</a></td>
                                     @else
                                       {{ "Fila de espera." }}
                                     @endif
+                                  @endif
+                                  <td>
                                 </tr>
                             @endforeach
                          </tbody>

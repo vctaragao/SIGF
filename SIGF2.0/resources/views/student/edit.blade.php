@@ -113,9 +113,9 @@
                             <label for="colar" class="col-md-4 col-form-label text-md-right">{{ __('Colar') }}</label>
 
                             <div class="col-md-6">
-                                
+
                                 <select id="colar" name="colar" class="custom-select {{ $errors->has('colar') ? ' is-invalid' : '' }}">
-                                  <option name="colar" value="{{ old('colar') }}" selected>{{ $user->colar }}</option>
+                                  <option name="colar" value="{{ $user->colar }}" selected>{{ $user->colar }}</option>
                                   <option name="colar" value="Tranparente">Tranparente</option>
                                   <option name="colar" value="Azul">Azul</option>
                                   <option name="colar" value="Azul Avançada">Azul Avançada</option>
