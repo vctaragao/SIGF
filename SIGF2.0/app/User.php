@@ -55,12 +55,12 @@ class User extends Authenticatable
 
     public function classrooms(){
 
-        return $this->belongsToMany('App\Classroom', 'user_classrooms');
+        return $this->belongsToMany('App\Classroom', 'user_classrooms', 'user_id');
     }
 
     public function classes(){
 
-        return $this->belongsToMany('App\Classes', 'attendences');
+        return $this->belongsToMany('App\Classes', 'attendences', 'user_id', 'class_id');
     }
 
     public function getNotDirectors(){

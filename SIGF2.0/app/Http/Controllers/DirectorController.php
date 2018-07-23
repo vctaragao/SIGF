@@ -309,4 +309,23 @@ class DirectorController extends StudentController
         }
         return back();
    }
+
+   public function deleteStudent($student_id){
+
+        $user = User::find($student_id);
+
+        $user->delete();
+
+        return back()->with('success', 'Estudante removido com sucesso');
+   }
+
+   public function removeStudent(){
+
+        $students = User::all();
+
+        $flag = "remove";
+
+        return view('student.showAll', ['students' => $students, 'flag' => $flag]);
+
+   }
 }

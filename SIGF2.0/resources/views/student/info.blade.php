@@ -5,9 +5,9 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Pefil de {{ $current_student->name }}
+                <div class="card-header"><strong>Nome: </strong>{{ $current_student->name }}
                     @if(Auth::user()->isDirector) 
-                        <a href="{{ url('/studentEdit/'.$current_student->id) }}" class="btn btn-primary float-right">Editar informações</a>
+                        <a href="{{ url('/studentEdit/'.$current_student->id) }}" class="btn btn-primary float-right">Editar <i class="fas fa-user-edit"></i></a>
                     @endif</div>
 
                 <div class="card-body">
@@ -16,12 +16,10 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    Nome: {{ $current_student->name }}
                                        
 
                     <p>Informações: </p>
-
+                    
                     <br>
                     sexo: {{ $current_student->sex }}
                     <br>

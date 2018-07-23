@@ -49,6 +49,8 @@ Route::middleware(['isDirector'])->group(function(){
 	Route::post('/closeSubscription', 'DirectorController@registerClosedClassrooms');
 	Route::get('/putOnWait/{classroom_id}/{id}', 'DirectorController@putOnWait');
 	Route::get('/putOffWait/{classroom_id}/{id}', 'DirectorController@putOffWait');
+	Route::get('/removeStudent', 'DirectorController@removeStudent');
+	Route::get('/removeStudent/{id}', 'DirectorController@deleteStudent');
 });
 
 

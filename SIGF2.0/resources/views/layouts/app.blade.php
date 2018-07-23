@@ -58,7 +58,7 @@
                                      <a class="dropdown-item" href={{ url('/studentAll') }}>Ver alunos</a>
                                      <a class="dropdown-item" href={{ url('/directorRegister') }}>Adicionar aluno</a>
                                      <div class="dropdown-divider"></div>
-                                     <a class="dropdown-item" href={{ url('/studentDelete') }}>Remover aluno</a>
+                                     <a class="dropdown-item" href={{ url('/removeStudent') }}>Remover aluno</a>
                                    </div>
                                  </li>
                              <li class="nav-item dropdown">
@@ -90,8 +90,6 @@
                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                      <a class="dropdown-item" href={{ url('/classroomAll') }}>Ver turmas</a>
                                      <a class="dropdown-item" href={{ url('/addClassroom') }}>Criar Turma</a>
-                                     <div class="dropdown-divider"></div>
-                                     <a class="dropdown-item" href={{ url('/subscription') }}>Iscrições</a>
                                    </div>
                                  </li>
 

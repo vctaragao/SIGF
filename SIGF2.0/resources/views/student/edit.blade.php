@@ -19,7 +19,7 @@
 
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Nome completo') }}</label>
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ $user->name }}" required autofocus>
@@ -33,7 +33,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-mail') }}</label>
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ $user->email }}" required>
@@ -47,10 +47,17 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="sex" class="col-md-4 col-form-label text-md-right">{{ __('Sex') }}</label>
+                            <label for="sex" class="col-md-4 col-form-label text-md-right">{{ __('Sexo') }}</label>
 
                             <div class="col-md-6">
-                                <input id="sex" type="sex" class="form-control{{ $errors->has('sex') ? ' is-invalid' : '' }}" name="sex" value="{{ $user->sex }}" required>
+
+                                 <select id="sex" name="sex" class="custom-select {{ $errors->has('sex') ? ' is-invalid' : '' }}">
+                                  <option name="sex" value="{{ old('sex') }}" selected>{{ $user->sex }}</option>
+                                  <option name="sex" value="Masculino">Masculino</option>
+                                  <option name="sex" value="Feminino">Feminino</option>
+                                  <option name="sex" value="Prefiro não dizer">Prefiro não dizer</option>
+                                  <option name="sex" value="OUtro">Outro</option>
+                                </select>
 
                                 @if ($errors->has('sex'))
                                     <span class="invalid-feedback">
@@ -61,7 +68,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="phone" class="col-md-4 col-form-label text-md-right">{{ __('Phone Number') }}</label>
+                            <label for="phone" class="col-md-4 col-form-label text-md-right">{{ __('Numero de celular') }}</label>
 
                             <div class="col-md-6">
                                 <input id="phone" type="phone" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" value="{{ $user->phone }}" required>
@@ -89,7 +96,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="course" class="col-md-4 col-form-label text-md-right">{{ __('Curse') }}</label>
+                            <label for="course" class="col-md-4 col-form-label text-md-right">{{ __('Curso') }}</label>
 
                             <div class="col-md-6">
                                 <input id="course" type="course" class="form-control{{ $errors->has('course') ? ' is-invalid' : '' }}" name="course" value="{{ $user->course }}" required>
@@ -106,7 +113,16 @@
                             <label for="colar" class="col-md-4 col-form-label text-md-right">{{ __('Colar') }}</label>
 
                             <div class="col-md-6">
-                                <input id="colar" type="colar" class="form-control{{ $errors->has('colar') ? ' is-invalid' : '' }}" name="colar" value="{{ $user->colar }}" required>
+                                
+                                <select id="colar" name="colar" class="custom-select {{ $errors->has('colar') ? ' is-invalid' : '' }}">
+                                  <option name="colar" value="{{ old('colar') }}" selected>{{ $user->colar }}</option>
+                                  <option name="colar" value="Tranparente">Tranparente</option>
+                                  <option name="colar" value="Azul">Azul</option>
+                                  <option name="colar" value="Azul Avançada">Azul Avançada</option>
+                                  <option name="colar" value="Preto">Preto</option>
+                                  <option name="colar" value="Preto Avançada">Preto Avançada</option>
+                                  <option name="colar" value="Vermelho">Vermelho</option>
+                                </select>
 
                                 @if ($errors->has('colar'))
                                     <span class="invalid-feedback">

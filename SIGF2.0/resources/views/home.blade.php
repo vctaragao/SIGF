@@ -38,10 +38,8 @@
 
                     <p>Informações: </p>
 
-                    ID: {{ $current_student->id }}
                     <br>
-                    Nome: {{ $current_student->name }}
-                    <br>
+
                     sexo: {{ $current_student->sex }}
                     <br>
                     CPF:  {{$current_student->cpf }}
@@ -52,9 +50,9 @@
                     <br>
                     email: {{ $current_student->email }}
                     <br>
-                    Professor: @if($current_student->isProfessor){{{ "Sim" }}}@else{{{ "Não" }}} @endif
+                    {{-- Professor: @if($current_student->isProfessor){{{ "Sim" }}}@else{{{ "Não" }}} @endif
                     <br>
-                    Diretor: @if($current_student->isDirector){{{ "Sim" }}}@else{{{ "Não" }}} @endif
+                    Diretor: @if($current_student->isDirector){{{ "Sim" }}}@else{{{ "Não" }}} @endif --}}
 
                 </div>
 

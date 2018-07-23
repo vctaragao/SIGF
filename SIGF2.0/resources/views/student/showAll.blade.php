@@ -16,6 +16,12 @@
                         </div>
                     @endif
 
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
                     
 
                     @foreach($students as $student)
@@ -57,15 +63,22 @@
                      @endif
       
                           @if(!empty($flag) && $flag == 'director')
-                          <div class="col-3 float-right">
+                          <div class="col-6 float-right">
                             <a href="{{ url('/addDirector/'.$student->id) }}" class="btn btn-primary float-right">Adicionar Diretor</a>
                           </div>
                             
                           @endif
 
                           @if(!empty($flag) && $flag == 'professor')
-                          <div class="col-3 float-right">
+                          <div class="col-6 float-right">
                             <a href="{{ url('/addProfessor/'.$student->id) }}" class="btn btn-primary float-right">Adicionar Professor</a>
+                          </div>
+
+                          @endif
+
+                          @if(!empty($flag) && $flag == 'remove')
+                          <div class="col-6 float-right">
+                            <a href="{{ url('/removeStudent/'.$student->id) }}" class="btn btn-danger float-right">Remover aluno</a>
                           </div>
                             
                           @endif

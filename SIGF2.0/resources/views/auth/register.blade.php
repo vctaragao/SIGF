@@ -43,7 +43,14 @@
                             <label for="sex" class="col-md-4 col-form-label text-md-right">{{ __('Sexo') }}</label>
 
                             <div class="col-md-6">
-                                <input id="sex" type="sex" class="form-control{{ $errors->has('sex') ? ' is-invalid' : '' }}" name="sex" value="{{ old('sex') }}" required>
+
+                                <select id="sex" name="sex" class="custom-select {{ $errors->has('sex') ? ' is-invalid' : '' }}">
+                                  <option name="sex" value="{{ old('sex') }}" selected>{{ old('sex') }}</option>
+                                  <option name="sex" value="Masculino">Masculino</option>
+                                  <option name="sex" value="Feminino">Feminino</option>
+                                  <option name="sex" value="Prefiro não dizer">Prefiro não dizer</option>
+                                  <option name="sex" value="OUtro">Outro</option>
+                                </select>
 
                                 @if ($errors->has('sex'))
                                     <span class="invalid-feedback">
@@ -113,7 +120,16 @@
                             <label for="colar" class="col-md-4 col-form-label text-md-right">{{ __('Colar') }}</label>
 
                             <div class="col-md-6">
-                                <input id="colar" type="colar" class="form-control{{ $errors->has('colar') ? ' is-invalid' : '' }}" name="colar" value="{{ old('colar') }}" required>
+
+                                <select id="colar" name="colar" class="custom-select {{ $errors->has('colar') ? ' is-invalid' : '' }}">
+                                  <option name="colar" value="{{ old('colar') }}" selected>Transparente</option>
+                                  <option name="colar" value="Tranparente">Tranparente</option>
+                                  <option name="colar" value="Azul">Azul</option>
+                                  <option name="colar" value="Azul Avançada">Azul Avançada</option>
+                                  <option name="colar" value="Preto">Preto</option>
+                                  <option name="colar" value="Preto Avançada">Preto Avançada</option>
+                                  <option name="colar" value="Vermelho">Vermelho</option>
+                                </select>
 
                                 @if ($errors->has('colar'))
                                     <span class="invalid-feedback">

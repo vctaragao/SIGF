@@ -5,7 +5,14 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Dashboard</div>
+                <div class="card-header">
+                    <strong>Nome:</strong> {{ $professor->name }}
+                    @if(Auth::user()->isDirector)
+                        <a href={{ url('/studentEdit/'.$professor->id) }} class="btn btn-primary float-right"> Editar <i class="fas fa-user-edit"></i></a>
+                    @endif
+                </div>
+
+
 
                 <div class="card-body">
                     @if (session('status'))
@@ -14,17 +21,16 @@
                         </div>
                     @endif
 
-                    Nome: {{ $professor->name }}
-                                       
+                  
 
                     <p>Informações: </p>
 
-                    Nome: {{ $professor->name }}
-                    <br>
                     sexo: {{ $professor->sex }}
                     <br>
+                    @if(Auth::user()->isDirector) 
                     CPF: {{ $professor->cpf }}
-                    <br>
+                     <br>
+                    @endif
                     Telefone : {{ $professor->phone }}
                     <br>
                     Curso : {{ $professor->course }}

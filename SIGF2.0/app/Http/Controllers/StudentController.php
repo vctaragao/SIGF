@@ -118,7 +118,20 @@ class StudentController extends Controller
 
    public function seeAllClassrooms(){
 
-        $classrooms = Classroom::all()->where('active' , '=' , '1');
+        if(Auth::user()->isDirector || Auth::user()->isProfessor){
+
+           $classrooms = Classroom::where('active', '=', 1)->get();
+
+           return view('classroom.showAll',['classrooms' => $classrooms]);
+        }
+
+        $classrooms = new Classroom;
+
+        $classrooms =  Auth::user()->classrooms()->select('user_classrooms.wait','classrooms.*', 'user_classrooms.role')->get();
+
+        if(!count($classrooms)){
+          return back()->with('subscription-status', 'Você não está matriculado em nenhuma turma');
+        }
 
         return view('classroom.showAll',['classrooms' => $classrooms]);
 

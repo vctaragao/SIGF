@@ -5,17 +5,41 @@
     <div class="row pl-0 pr-0 justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">Turma {{ $classroom->name }} Horario: {{ $classroom->schedule }}  
-                  @if(Auth::user()->isDirector || Auth::user()->isProfessor)
-                  <a class="btn btn-primary float-right ml-2" href={{ url('/showClasses/'.$classroom->id) }}>Ver Aulas</a>
-                  <a class="btn btn-primary float-right ml-2" href={{ url('/addClassToClassroom/'.$classroom->id) }}>Adicionar Aula</a>
-                    <a class="btn btn-primary float-right" href={{ url('/addStudentToClassroom/'.$classroom->id) }}>Adicionar aluno</a>
-                    <a class="btn btn-primary float-right mr-2" href={{ url('/editClassroom/'.$classroom->id) }}>Editar turma</a>
+                <div class="card-header row justify-content-between">
+                  <div class="d-flex flex-column">
+                    <p class="pb-0 mb-0"><strong>Turma:</strong> {{ $classroom->name }}</p> <p class="mb-0 pb-0"><strong>Horario:</strong> {{ $classroom->schedule }}</p>  
+                  </div>
+                    
 
-                    <button type="button" class="btn btn-danger float-right mr-3" data-toggle="modal" data-target="#exampleModal">
-                     Remover turma
-                    </button>
-                  @endif
+                    <div class="d-flex justify-content-around">
+                        @if(Auth::user()->isDirector || Auth::user()->isProfessor)
+
+                       
+
+                        <a class="btn btn-primary  mr-2" href={{ url('/showClasses/'.$classroom->id) }}>Ver Aulas</a>
+                        <a class="btn btn-primary  mr-2" href={{ url('/addClassToClassroom/'.$classroom->id) }}>Adicionar Aula</a>
+
+                         <div class="dropdown dropleft">
+                          <button class="btn " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">
+                            settings
+                            </i>
+                          </button>
+                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item btn btn-primary" href={{ url('/addStudentToClassroom/'.$classroom->id) }}>Adicionar aluno</a>
+                            <a class="dropdown-item btn btn-primary" href={{ url('/editClassroom/'.$classroom->id) }}>Editar turma</a>
+
+                             <div class="dropdown-divider"></div>
+
+                          <button type="button" class="dropdown-item btn btn-danger " data-toggle="modal" data-target="#exampleModal">
+                           Remover turma
+                          </button>
+                          </div>
+                        </div>
+                        
+                        @endif
+                    </div>
+                  
                 </div>
 
                 <div class="card-body pb-2">
@@ -55,7 +79,7 @@
                     </div>
                           
                       <div class="col-6 flex flex-colunm bold-text ">
-                        <div class="border-bottom font-weight-bold text-center">Conduzido</div>
+                        <h6 class="border-bottom font-weight-bold text-center">Conduzido</h6>
                         @foreach($leds as $led)
                           <div class="row mr-2 @if($led->wait) text-white bg-secondary @endif">
                             <div class="col-4 pt-2 pb-2">{{ $led->name }}</div>
