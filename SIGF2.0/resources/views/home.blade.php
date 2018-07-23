@@ -87,17 +87,20 @@
                                 <table class="table">
                                       <thead>
                                         <tr>
+                                          <th scope="col">Selecionar turma</th>
                                           <th scope="col">Nome</th>
                                           <th scope="col">Horário</th>
                                           <th scope="col">Dia</th>
                                           <th scope="col">Papel</th>
-                                          <th scope="col">Cadastrar na turma</th>
                                         </tr>
                                       </thead>
                                      <tbody>
                                         @foreach($classrooms as $classroom)
                                             <tr>
-                                              <th scope="row"><a href={{ url('/classroom/'.$classroom->id) }}>{{ $classroom->name }}</a></th>
+                                              <th scope="row" style="text-align:center;">
+                                                     <input id="{{ $classroom->id }}" name="classrooms[{{ $classroom->id }}]" type="checkbox">
+                                              </th>
+                                              <td ><a href={{ url('/classroom/'.$classroom->id) }}>{{ $classroom->name }}</a></td>
                                               <td>{{ $classroom->schedule }}</td>
                                               <td>{{ $classroom->day }}</td>
                                               <td>
@@ -125,9 +128,7 @@
 
                                                 </div>
                                               </td>
-                                              <td>
-                                                     <input id="{{ $classroom->id }}" name="classrooms[{{ $classroom->id }}]" type="checkbox">
-                                              </td>
+                                              
                                             </tr>
                                         @endforeach
                                      </tbody>
