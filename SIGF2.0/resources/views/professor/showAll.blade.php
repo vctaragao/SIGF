@@ -26,7 +26,7 @@
                        @if(Auth::user()->isDirector || Auth::user()->isProfessor) <a class="" href={{ url('/professor/'.$professor->id) }}>{{ $professor->name }}</a> @else {{ $professor->name }} @endif
                      </div>
 
-                     <div class="col-3 text-center"><a href="{{ $professor->profile }}">Facebook</a></div>
+                     <div class="col-3 text-center"><a href="{{ $professor->profile }}" target="_blank">Facebook</a></div>
 
 
                      @if(!empty($flag) && $flag == 'remove')

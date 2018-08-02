@@ -24,6 +24,10 @@ Route::middleware(['Professor_or_Director'])->group(function(){
 	Route::get('/addStudentToClassroom/{id}', 'ProfessorController@addStudentsToClassroom');
 	Route::post('/addStudentToClassroom/{id}', 'ProfessorController@insertStudentsToClassroom');
 	Route::get('/removeStudentFromClassroom/{classroom_id}/{id}', 'ProfessorController@removeStudentsFromClassroom');
+	Route::get('/classroom/{id}', 'StudentController@seeClassroomInfo');
+	Route::get('/student/{id}', 'StudentController@seeStudentInfo');
+	Route::get('professor/{id}', 'StudentController@seeProfessorInfo');
+	Route::get('/director/{id}', 'StudentController@seeDirectorInfo');
 
 });
 
@@ -60,13 +64,13 @@ Route::middleware(['isStudent'])->group(function(){
 	Route::get('/studentEdit/{id}', 'StudentController@edit');
 	Route::post('/studentEdit', 'StudentController@update');
 	Route::get('/studentAll', 'StudentController@seeAllStudents');
-	Route::get('/student/{id}', 'StudentController@seeStudentInfo');
+	
 	Route::get('/classroomAll', 'StudentController@seeAllClassrooms');
-	Route::get('/classroom/{id}', 'StudentController@seeClassroomInfo');
+	
 	Route::get('/professorAll', 'StudentController@seeAllProfessors');
-	Route::get('professor/{id}', 'StudentController@seeProfessorInfo');
+	
 	Route::get('/directorAll', 'StudentController@seeAllDirectors');
-	Route::get('/director/{id}', 'StudentController@seeDirectorInfo');
+	
 	Route::get('/showClasses/{id}', 'StudentController@showClasses');
 	Route::get('/showClassInfo/{classroom_id}/{id}', 'StudentController@showClassInfo');
 	Route::post('/subscription', 'StudentController@classroomsSubscription');

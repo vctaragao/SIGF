@@ -54,7 +54,7 @@
                         <h6 class="font-weight-bold border-bottom text-center">Condutor</h6>
                       @foreach($leaders as $leader)
                         <div class="row mr-2 @if($leader->wait) text-white bg-secondary @endif">
-                            <div class="col-4 pt-2 pb-2">{{ $leader->name }}</div>
+                            <div class="col-4 pt-2 pb-2"><a class="@if($leader->wait) text-white @endif" href="{{ $leader->profile }}" target="_blank">{{ $leader->name }}</a></div>
                             <div class="col-4 pt-2 pb-2 text-center">{{ $leader->phone }}</div>
 
                             @if(Auth::user()->isDirector || Auth::user()->isProfessor)
@@ -82,7 +82,7 @@
                         <h6 class="border-bottom font-weight-bold text-center">Conduzido</h6>
                         @foreach($leds as $led)
                           <div class="row mr-2 @if($led->wait) text-white bg-secondary @endif">
-                            <div class="col-4 pt-2 pb-2">{{ $led->name }}</div>
+                            <div class="col-4 pt-2 pb-2"><a class=" @if($led->wait) text-white @endif" href="{{ $led->profile }}" target="_blank">{{ $led->name }}</a></div>
                             <div class="col-4  pt-2 pb-2 text-center">{{ $led->phone }}</div>
 
                             @if(Auth::user()->isDirector || Auth::user()->isProfessor)
@@ -105,7 +105,7 @@
 
                   </div>
 
-                  <!-- Modal -->
+                  <!-- Remove Classroom Modal -->
                   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
@@ -145,6 +145,45 @@
                     </div>
                   </div>
                      
+                    {{-- Remove student Modal --}}
+                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Remover Turma</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <form method="POST" action="{{ url('/removeStudentFromClassroom') }}">
+                              @csrf
+
+                              <div class="form-group row">
+                                  <label for="confirm_password" class="col-md-4 col-form-label text-md-right">{{ __('Confirmar senha: ') }}</label>
+
+                                  <div class="col-md-6">
+                                      <input id="confirm_password" type="password" class="form-control{{ $errors->has('confirm_password') ? ' is-invalid' : '' }}" name="confirm_password" autofocus required>
+
+                                      <input name="user_id" value="{{ Auth::user()->id }}" type="hidden">
+
+                                      @if ($errors->has('confirm_password'))
+                                          <span class="invalid-feedback">
+                                              <strong>{{ $errors->first('confirm_password') }}</strong>
+                                          </span>
+                                      @endif
+                                  </div>
+                              </div>
+
+                              <div class="row justify-content-center">
+                                  <button name="classroom_id" value="{{ $classroom->id }}" type="submit" class="btn btn-danger">Remover Turma</button>
+                              </div>
+
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
             </div>
         </div>

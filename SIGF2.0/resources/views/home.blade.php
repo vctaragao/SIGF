@@ -100,7 +100,7 @@
                                               <th scope="row" style="text-align:center;">
                                                      <input id="{{ $classroom->id }}" name="classrooms[{{ $classroom->id }}]" type="checkbox">
                                               </th>
-                                              <td ><a href={{ url('/classroom/'.$classroom->id) }}>{{ $classroom->name }}</a></td>
+                                              <td >{{ $classroom->name }}</td>
                                               <td>{{ $classroom->schedule }}</td>
                                               <td>{{ $classroom->day }}</td>
                                               <td>

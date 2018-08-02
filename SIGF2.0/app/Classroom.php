@@ -94,17 +94,10 @@ class Classroom extends Model
 
     protected function inQueue($role){
 
-        if($role == 'cc'){
-            $students = $this->getLeader();
-        }elseif($role == 'cd'){
-            $students = $this->getLed();
-        }
+      
+         $result =  $this->isClassroomFull($role);
 
-        if(count($students) >= ($this->size/2)){
-            return true;
-        }
-
-        return false;
+        return ($result) ? true : false;
     }
 
     public function removeStudent($student_id){
@@ -119,10 +112,11 @@ class Classroom extends Model
 
     public function getLeader(){
 
-        $leaders = $this->users()->select('users.id','name','phone','user_classrooms.wait')
+        $leaders = $this->users()->select('users.id','name','phone','user_classrooms.wait','users.profile')
                                 ->where('user_classrooms.classroom_id', '=', $this->id)
                                 ->where('user_classrooms.role', '=', 'cc')
                                 ->orderBy('user_classrooms.wait')
+                                ->orderBy('user_classrooms.created_at')
                                 ->get();
 
     	return $leaders;
@@ -130,11 +124,12 @@ class Classroom extends Model
 
     public function getLed(){
     	$leds = DB::table('users')
-  			->select('users.id','name', 'phone', 'user_classrooms.role', 'user_classrooms.wait')
+  			->select('users.id','name', 'phone', 'user_classrooms.role', 'user_classrooms.wait','users.profile')
             ->leftJoin('user_classrooms', 'users.id', '=', 'user_classrooms.user_id')
             ->where('user_classrooms.classroom_id', '=', $this->id)
             ->where('user_classrooms.role', '=', 'cd')
             ->orderBy('user_classrooms.wait')
+            ->orderBy('user_classrooms.created_at')
             ->get();
 
 
@@ -212,8 +207,6 @@ class Classroom extends Model
         $user = User_Classroom::find($user[0]->id);
 
         $user->wait = 0;
-        $user->save();
-        $user->created_at = $user->updated_at;
         $user->save(); 
 
         return true;
@@ -241,7 +234,6 @@ class Classroom extends Model
                                 ->where('user_classrooms.classroom_id', '=', $this->id)
                                 ->where('user_classrooms.role', '=', 'cc')
                                 ->where('user_classrooms.wait', '=', 0)
-                                ->orderBy('user_classrooms.updated_at')
                                 ->get();
 
         return $leaders;
@@ -254,7 +246,6 @@ class Classroom extends Model
             ->where('user_classrooms.classroom_id', '=', $this->id)
             ->where('user_classrooms.role', '=', 'cd')
             ->where('user_classrooms.wait', '=', 0)
-            ->orderBy('user_classrooms.updated_at')
             ->get();
 
 

@@ -37,7 +37,7 @@
                        @if(Auth::user()->isDirector || Auth::user()->isProfessor) <a class="" href={{ url('/student/'.$student->id) }}>{{ $student->name }}</a> @else {{ $student->name }} @endif
                      </div>
 
-                     @if(!empty($student->profile))<div class="col-3 text-center"><a href="{{ $student->profile }}">Facebook</a></div>@endif
+                     @if(!empty($student->profile))<div class="col-3 text-center"><a href="{{ $student->profile }}" target="_blank">Facebook</a></div>@endif
 
                      @if(!empty($flag) && $flag =='add' && (Auth::user()->isProfessor || Auth::User()->isDirector))
 
