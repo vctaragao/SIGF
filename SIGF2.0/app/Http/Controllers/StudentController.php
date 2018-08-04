@@ -157,18 +157,11 @@ class StudentController extends Controller
 
    public function showClasses($classroom_id){
 
-      $classes = new Classes;
-      $classes = $classes->attendence()->where('classrooms.active', '=', 1)->where('classes.classroom_id', '=', $classroom_id)->orderBy('classes.date')->get();
+      $classes = Classes::where('classroom_id', '=', $classroom_id)->get();
 
-      foreach ($classes as $class) {
-        echo $class;
-      }
+      $classroom = Classroom::find($classroom_id);
 
-      die();
-
-       $classroom = Classroom::find($classroom_id);
-
-       return view('classroom.class.showAll', ['classes' => $classes, 'classroom' => $classroom]);
+      return view('classroom.class.showAll', ['classes' => $classes, 'classroom' => $classroom]);
    }
 
    public function showClassInfo($classroom_id, $class_id){

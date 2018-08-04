@@ -28,7 +28,7 @@ Route::middleware(['Professor_or_Director'])->group(function(){
 	Route::get('/student/{id}', 'StudentController@seeStudentInfo');
 	Route::get('professor/{id}', 'StudentController@seeProfessorInfo');
 	Route::get('/director/{id}', 'StudentController@seeDirectorInfo');
-
+	Route::get('/classroomAll', 'StudentController@seeAllClassrooms');
 });
 
 Route::middleware(['isDirector'])->group(function(){
@@ -65,7 +65,7 @@ Route::middleware(['isStudent'])->group(function(){
 	Route::post('/studentEdit', 'StudentController@update');
 	Route::get('/studentAll', 'StudentController@seeAllStudents');
 	
-	Route::get('/classroomAll', 'StudentController@seeAllClassrooms');
+	
 	
 	Route::get('/professorAll', 'StudentController@seeAllProfessors');
 	
