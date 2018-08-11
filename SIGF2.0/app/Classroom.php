@@ -149,7 +149,7 @@ class Classroom extends Model
 
     public function getStudentsInCLassroom(){
         
-        $students = $this->users()->select('users.id', 'name')->where('user_classrooms.classroom_id', '=', $this->id)->orderBy('name')->get();
+        $students = $this->users()->select('users.id', 'name')->where('user_classrooms.classroom_id', '=', $this->id)->where('user_classrooms.wait', '=', 0)->orderBy('name')->get();
 
         return $students;
 
