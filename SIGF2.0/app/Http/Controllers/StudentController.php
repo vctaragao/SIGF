@@ -177,9 +177,12 @@ class StudentController extends Controller
 
       $class = Classes::find($class_id);
 
+      setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
+      $class->date = strftime('%d de %B de %Y', strtotime($class->date));
+
       $presence = $class->attendence()->select('attendences.presence')->where('user_id', '=', Auth::id())->get();
 
-       $classroom = Classroom::find($classroom_id);
+      $classroom = Classroom::find($classroom_id);
 
       if(count($presence)){
         return view('classroom.class.info', ['class' => $class, 'classroom' => $classroom, 'presence' => $presence]);
