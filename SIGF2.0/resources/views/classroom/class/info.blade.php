@@ -43,7 +43,7 @@
                     <br>
                     Conteudo : {{ $class->content }}
                     <br>
-                    Presença na aula: @if($presence[0]->presence) {{ "Sim" }} @else {{ "Não" }} @endif
+                    @if(isset($presence)) Presença na aula: @if($presence[0]->presence) {{ "Sim" }} @else {{ "Não" }} @endif @endif
 
                 </div>
 

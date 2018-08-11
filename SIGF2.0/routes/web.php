@@ -64,13 +64,8 @@ Route::middleware(['isStudent'])->group(function(){
 	Route::get('/studentEdit/{id}', 'StudentController@edit');
 	Route::post('/studentEdit', 'StudentController@update');
 	Route::get('/studentAll', 'StudentController@seeAllStudents');
-	
-	
-	
 	Route::get('/professorAll', 'StudentController@seeAllProfessors');
-	
 	Route::get('/directorAll', 'StudentController@seeAllDirectors');
-	
 	Route::get('/showClasses/{id}', 'StudentController@showClasses');
 	Route::get('/showClassInfo/{classroom_id}/{id}', 'StudentController@showClassInfo');
 	Route::post('/subscription', 'StudentController@classroomsSubscription');

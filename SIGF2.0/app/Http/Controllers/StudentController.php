@@ -170,9 +170,14 @@ class StudentController extends Controller
 
       $presence = $class->attendence()->select('attendences.presence')->where('user_id', '=', Auth::id())->get();
 
-      $classroom = Classroom::find($classroom_id);
+       $classroom = Classroom::find($classroom_id);
 
-      return view('classroom.class.info', ['class' => $class, 'classroom' => $classroom, 'presence' => $presence]);
+      if(count($presence)){
+        return view('classroom.class.info', ['class' => $class, 'classroom' => $classroom, 'presence' => $presence]);
+      }
+
+      return view('classroom.class.info', ['class' => $class, 'classroom' => $classroom]);
+
    }
 
    public function seeAllDirectors($flag = null){
