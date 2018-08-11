@@ -57,10 +57,11 @@ class StudentController extends Controller
 
         $user = User::find($request->user_edit);
 
-        if($validate && Hash::check($request->password_confirmation, $user->password)){
+        if($validate && Hash::check($request->password_confirmation, Auth::user()->password)){
 
             $user->store($request);
 
+            $request->session()->flash('success', 'Informações alteradas com sucesso!');
             return redirect('/Home');
 
         }else{
