@@ -160,6 +160,14 @@ class StudentController extends Controller
 
       $classes = Classes::where('classroom_id', '=', $classroom_id)->get();
 
+      if(count($classes)){
+
+        foreach ($classes as $class) {
+          setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
+          $class->date = strftime('%d de %B de %Y', strtotime($class->date));
+        }
+      }
+
       $classroom = Classroom::find($classroom_id);
 
       return view('classroom.class.showAll', ['classes' => $classes, 'classroom' => $classroom]);
