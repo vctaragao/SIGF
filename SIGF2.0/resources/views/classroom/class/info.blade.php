@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">
 
-                    Turma{{ $classroom->name }}
+                    <strong>Turma   {{ $classroom->name }}</strong>
                     
                     @if(Auth::user()->isProfessor)
                         <div class="float-right">
@@ -33,15 +33,10 @@
                         </div>
                     @endif
                                        
-
-                    <p>Informações: </p>
-
-
-                    ID: {{ $class->id }}
                     <br>
-                    Data: {{ $class->date }}
+                    <strong>Data:</strong> {{ $class->date }}
                     <br>
-                    Conteudo : {{ $class->content }}
+                    <strong>Conteudo:</strong> {{ $class->content }}
                     <br>
                     @if(isset($presence)) Presença na aula: @if($presence[0]->presence) {{ "Sim" }} @else {{ "Não" }} @endif @endif
 

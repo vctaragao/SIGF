@@ -28,7 +28,7 @@ Route::middleware(['Professor_or_Director'])->group(function(){
 	Route::get('/student/{id}', 'StudentController@seeStudentInfo');
 	Route::get('professor/{id}', 'StudentController@seeProfessorInfo');
 	Route::get('/director/{id}', 'StudentController@seeDirectorInfo');
-	Route::get('/classroomAll', 'StudentController@seeAllClassrooms');
+	
 });
 
 Route::middleware(['isDirector'])->group(function(){
@@ -71,6 +71,7 @@ Route::middleware(['isStudent'])->group(function(){
 	Route::post('/subscription', 'StudentController@classroomsSubscription');
 	Route::get('/changePassword/{id}', 'StudentController@changePassword');
 	Route::post('/changePassword/{id}', 'StudentController@registerNewPassword');
+	Route::get('/classroomAll', 'StudentController@seeAllClassrooms');
 });
 
 
