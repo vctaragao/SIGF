@@ -11,7 +11,7 @@
                     <form method="POST" action={{ url('/addClassToClassroom') }}>
                         @csrf
                         <div class="row">
-                            <div class="col-7 d-flex flex-column">
+                            <div class="col-12 col-md-9 d-flex flex-column">
                                 <div class="form-group row">
                                     <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Data: ') }}</label>
 
@@ -40,7 +40,7 @@
                                     </div>
                                 </div>
 
-                            <div class="col-5 d-flex flex-column">
+                            <div class="col-11 col-md-8 p-0 p-md-2 d-flex flex-column">
                                 <h3 class="text-center">Presença</h3>
 
                                 @if (session('error'))
@@ -50,12 +50,15 @@
                                 @else
                                 
                                     @foreach($students as $student)
-                                        <div class="row pb-2 pt-2 border-bottom">
-                                            <div class="col-6 float-left">{{ $student->name }}</div>
-                                            <div class="col-6 ">
-                                                <input id="{{ $student->id }}"name="attendence[{{ $student->id }}]" class="float-right" type="checkbox">
+                                        <div class="row pb-2 pt-2 border-bottom align-items-center pb-md-2 mt-md-2 ">
+                                            <div class="col-2 col-md-2">
+                                                <input id="{{ $student->id }}"name="attendence[{{ $student->id }}]" class="float-left" type="checkbox">
                                                 <input id="{{ $student->id }}b" name="attendence[{{ $student->id }}]" value="0" type="hidden" disabled>
                                             </div>
+                                            <div class="col-10 mt-2 col-md-10 float-left">
+                                                <p>{{ $student->name }}</p>
+                                            </div>
+                                            
                                         </div>
                                     @endforeach
 
