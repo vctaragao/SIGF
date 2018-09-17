@@ -28,6 +28,8 @@ Route::middleware(['Professor_or_Director'])->group(function(){
 	Route::get('/student/{id}', 'StudentController@seeStudentInfo');
 	Route::get('professor/{id}', 'StudentController@seeProfessorInfo');
 	Route::get('/director/{id}', 'StudentController@seeDirectorInfo');
+	Route::get('/putOnWait/{classroom_id}/{id}', 'DirectorController@putOnWait');
+	Route::get('/putOffWait/{classroom_id}/{id}', 'DirectorController@putOffWait');
 	
 });
 
@@ -51,8 +53,6 @@ Route::middleware(['isDirector'])->group(function(){
 	Route::post('/openSubscription', 'DirectorController@registerOpenClassrooms');
 	Route::get('/closeSubscription', 'DirectorController@closeClassrooms');
 	Route::post('/closeSubscription', 'DirectorController@registerClosedClassrooms');
-	Route::get('/putOnWait/{classroom_id}/{id}', 'DirectorController@putOnWait');
-	Route::get('/putOffWait/{classroom_id}/{id}', 'DirectorController@putOffWait');
 	Route::get('/removeStudent', 'DirectorController@removeStudent');
 	Route::get('/removeStudent/{id}', 'DirectorController@deleteStudent');
 });
