@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Classroom;
+use App\Attendence;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use PDF;
 
 class DirectorController extends StudentController
 {
@@ -32,9 +34,9 @@ class DirectorController extends StudentController
             $result = $classroom->create($request);
 
             if(!$result){
-               
+
                return back()->with('error','Não foi possivel criar a turma');
-               
+
             }
 
             $request->session()->flash('success', 'Turma criada com sucesso');
@@ -68,9 +70,9 @@ class DirectorController extends StudentController
             $result = $classroom->updateClassroom($request);
 
             if(!$result){
-               
+
                return back()->with('error','Não foi possivel alterar a turma');
-               
+
             }
 
             $request->session()->flash('success', 'Turma alterada com sucesso');
@@ -93,7 +95,7 @@ class DirectorController extends StudentController
 
         return redirect('/classroomAll')->with('success', 'Turma removida com sucesso!');
 
-    }    
+    }
 
     public function addDirector(){
 
@@ -326,6 +328,39 @@ class DirectorController extends StudentController
         $flag = "remove";
 
         return view('student.showAll', ['students' => $students, 'flag' => $flag]);
+
+   }
+
+   public function getStudentHours(){
+
+     $users = User::all();
+     $user_data = [];
+     $hours = 0;
+
+     foreach ($users as $user) {
+       // Pegar as turmas que o aluno está inscrito e que estão ativas
+       $classrooms = $user->classrooms->where('active',1);
+
+       // Se o aluno não está matriculado em nenhuma turma ativa, passar para o próximo
+       if(!count($classrooms))
+        continue;
+
+       // Pegar as aulas dessas turmas
+       foreach($classrooms as $classroom){
+         $classes = $classroom->classes;
+
+         //Pegar a presença dessas aulas do aluno especifico
+         foreach ($classes as $class)
+           $hours += count(Attendence::all()->where('user_id',$user->id)->where('class_id', $class->id)->where('presence',1)) * 2;
+         }
+
+       $user_data[] = ['user_name' => $user->name, 'hours' => $hours];
+       $hours = 0;
+     }
+
+    // Carregar e baixar o arquivo PDF 
+    $pdf = PDF::loadView('pdf.studentHours',['user_data' => $user_data]);
+    return $pdf->download('studentHours.pdf');
 
    }
 }

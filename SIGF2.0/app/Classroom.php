@@ -23,8 +23,8 @@ class Classroom extends Model
     }
 
     public function classes(){
-        
-        return $this->hasMany('App\Class');
+
+        return $this->hasMany('App\Classes');
     }
 
     public function create($request){
@@ -65,7 +65,7 @@ class Classroom extends Model
 
         $wait = 0;
 
-        if($this->isStudentInClassroom($student_id)){ 
+        if($this->isStudentInClassroom($student_id)){
             return false;
         }elseif($this->inQueue($role)){
             $wait = 1;
@@ -82,7 +82,7 @@ class Classroom extends Model
         $relation->save();
 
         return true;
-        
+
     }
 
     protected function isStudentInClassroom($student_id){
@@ -94,7 +94,7 @@ class Classroom extends Model
 
     protected function inQueue($role){
 
-      
+
          $result =  $this->isClassroomFull($role);
 
         return ($result) ? true : false;
@@ -148,7 +148,7 @@ class Classroom extends Model
     }
 
     public function getStudentsInCLassroom(){
-        
+
         $students = $this->users()->select('users.id', 'name')->where('user_classrooms.classroom_id', '=', $this->id)->where('user_classrooms.wait', '=', 0)->orderBy('name')->get();
 
         return $students;
@@ -207,7 +207,7 @@ class Classroom extends Model
         $user = User_Classroom::find($user[0]->id);
 
         $user->wait = 0;
-        $user->save(); 
+        $user->save();
 
         return true;
     }
@@ -226,7 +226,7 @@ class Classroom extends Model
 
         }
 
-        
+
     }
 
     private function getLeadersInClassroom(){
@@ -257,7 +257,7 @@ class Classroom extends Model
         $inStudentsPrepared = [];
 
             foreach ($results as $result) {
-                
+
                 foreach ($result as $key => $value) {
                     $inStudentsPrepared[] = $value;
                 }

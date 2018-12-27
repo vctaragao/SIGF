@@ -55,12 +55,12 @@ class User extends Authenticatable
 
     public function classrooms(){
 
-        return $this->belongsToMany('App\Classroom', 'user_classrooms', 'user_id');
+        return $this->belongsToMany('App\Classroom', 'user_classrooms', 'user_id', 'classroom_id');
     }
 
     public function classes(){
 
-        return $this->belongsToMany('App\Classes', 'attendences', 'user_id', 'class_id');
+        return $this->belongsToMany('App\Classes', 'attendences', 'user_id', 'class_id')->withPivot('presence');
     }
 
     public function getNotDirectors(){
@@ -108,4 +108,8 @@ class User extends Authenticatable
 
         return ($result) ? true : false;
     }
+    //
+    // public function getHoursInThisSemester(){
+    //
+    // }
 }

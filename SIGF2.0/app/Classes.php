@@ -9,8 +9,8 @@ class Classes extends Model
 {
     protected $fillable = [
     	'date',
-        'content',
-        'classroom_id',
+      'content',
+      'classroom_id',
     ];
 
     protected $table = "classes";
