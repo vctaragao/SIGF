@@ -333,7 +333,9 @@ class DirectorController extends StudentController
 
    public function getStudentHours(){
 
-     $users = User::all();
+     $users = User::all()->sortBy('name');
+     // echo $users;
+     // die();
      $user_data = [];
      $hours = 0;
 
@@ -354,7 +356,7 @@ class DirectorController extends StudentController
            $hours += count(Attendence::all()->where('user_id',$user->id)->where('class_id', $class->id)->where('presence',1)) * 2;
          }
 
-       $user_data[] = ['user_name' => $user->name, 'hours' => $hours];
+       $user_data[] = ['user_name' => $user->name, 'hours' => $hours, 'user_cpf' => $user->cpf];
        $hours = 0;
      }
 
