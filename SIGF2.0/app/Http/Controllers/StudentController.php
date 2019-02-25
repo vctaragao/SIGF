@@ -53,6 +53,7 @@ class StudentController extends Controller
             'phone' => 'required|string:14,20',
             'cpf' => ['required', Rule::unique('users')->ignore($request->user_edit),],
             'course' => 'required',
+            'new_password' => 'min:6|string',
         ]);
 
         $user = User::find($request->user_edit);

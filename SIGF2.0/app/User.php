@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
@@ -45,6 +46,10 @@ class User extends Authenticatable
         $this->sex = $data->sex;
         $this->course = $data->course;
         $this->colar = $data->colar;
+
+        if(isset($data->new_password) && !empty($data->new_password)){
+            $this->password = Hash::make($data->new_password);
+        }
 
         $this->save();
 

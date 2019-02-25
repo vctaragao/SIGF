@@ -52,11 +52,11 @@
                             <div class="col-md-6">
 
                                  <select id="sex" name="sex" class="custom-select {{ $errors->has('sex') ? ' is-invalid' : '' }}">
-                                  <option name="sex" value="{{ old('sex') }}" selected>{{ $user->sex }}</option>
-                                  <option name="sex" value="Masculino">Masculino</option>
-                                  <option name="sex" value="Feminino">Feminino</option>
-                                  <option name="sex" value="Prefiro não dizer">Prefiro não dizer</option>
-                                  <option name="sex" value="OUtro">Outro</option>
+                                  <option name="sex" value="Masculino" @if($user->sex == "Masculino") selected @endif >Masculino</option>
+                                  <option name="sex" value="Feminino" @if($user->sex == "Feminino") selected @endif>Feminino</option>
+                                  <option name="sex" value="Prefiro não dizer" @if($user->sex == "Prefiro não dizer") selected @endif>Prefiro não dizer</option>
+                                  <option name="sex" value="Outro" @if($user->sex == "Outro") selected @endif>Outro</option>
+                                  
                                 </select>
 
                                 @if ($errors->has('sex'))
@@ -133,7 +133,15 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+                            <label for="new-password" class="col-md-4 col-form-label text-md-right">{{ __('Nova senha') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="new-password" type="password" class="form-control" name="new_password">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirmar Senha para atualizar informações') }}</label>
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
